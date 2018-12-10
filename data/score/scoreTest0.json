@@ -1,0 +1,14 @@
+[
+  {"indicatorID":"01010101", "indicatorName":"pcy1","markingType":"专家评分值","markingID":"010101","scorer":"分数","score":"1"},
+  {"indicatorID":"01010101", "indicatorName":"pcy1","markingType":"专家评分值","markingID":"010102","scorer":"备注", "score":"2"},
+
+  {"indicatorID":"01010102", "indicatorName":"yyy1","markingType":"专家评分值","markingID":"010101","scorer":"分数", "score":"6"},
+  {"indicatorID":"01010102", "indicatorName":"yyy1","markingType":"专家评分值","markingID":"010102","scorer":"备注", "score":"7"},
+
+  {"indicatorID":"01010201", "indicatorName":"pcy1","markingType":"专家评分值","markingID":"010101","scorer":"分数", "score":"11"},
+  {"indicatorID":"01010201", "indicatorName":"pcy1","markingType":"专家评分值","markingID":"010102","scorer":"备注", "score":"12"},
+
+  {"indicatorID":"01010202", "indicatorName":"yyy1","markingType":"专家评分值","markingID":"010101","scorer":"分数", "score":"16"},
+  {"indicatorID":"01010202", "indicatorName":"yyy1","markingType":"专家评分值","markingID":"010102","scorer":"备注", "score":"17"}
+
+]

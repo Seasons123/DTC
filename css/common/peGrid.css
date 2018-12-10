@@ -1,0 +1,40 @@
+
+/**grid��������ͷ����ɫ**/
+.u-grid-header-link, .u-grid-header-left{
+	background-color: #DDEFFF !important;;
+}
+/**grid��ѡ��ı���ɫ**/
+.u-grid-header-multi-select, .u-grid-header-num{
+  background-color: #DDEFFF !important;;
+  height: 32px !important;
+}
+/**grid��������ѡ��ı߿���**/
+.u-grid-content-multiSelect, .u-grid-content-num, .u-grid td{
+	border-width: 0px !important;;
+	height: 32px !important;
+	line-height: 32px !important;
+}
+.u-grid-header-multi-select .u-grid-checkbox-outline{
+	background-color: #fff !important;;
+}
+/**grid���ż���б���ɫ**/
+.u-grid tr[role="row"]:nth-child(even), 
+.u-grid-content-num:nth-child(even), 
+.u-grid-content-multiSelect:nth-child(even){
+	background-color: #F2FAFF !important;;
+}
+.operate{
+	height:20% !important;
+}
+.tab-grid{
+	height:80% !important;
+}
+.tab-grid-content{
+	height:90% !important;
+}
+#subPrjGrid div[u-meta]{
+    height: 100% !important;
+}
+#ip-grid-footer-area-subPrjGrid{
+    height: 0px !important;
+}

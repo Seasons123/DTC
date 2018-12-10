@@ -1,0 +1,27 @@
+		.nav-tabs{
+			padding-left:8px;
+			margin-bottom:10px;
+			border-bottom:1px solid #ddd;
+		}
+		.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+			background-color: #FFF;
+		    color: #108EE9;
+		    /* border: none; */
+		    border-top: 2px solid #108EE9;
+		    border-left: 1px solid #ddd;
+		    border-right: 1px solid #ddd;
+		    font-weight:bold;
+		    border-radius:0px;
+		}
+		
+		.nav-tabs>li>a{
+			background-color: #FFF;
+		    line-height: 1.028571;
+		    color: #333;
+		    padding: 8px 13px;
+		}
+		
+		.nav-tabs > li{
+			float: left;
+		    margin-right: 15px;
+		}

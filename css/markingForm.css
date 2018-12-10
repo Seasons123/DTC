@@ -1,0 +1,100 @@
+#target_table td,th{
+    height:33px;
+    border:solid 1px #95b3d7;
+}
+#top_table td,th,#review_table td,th{
+    height:38px;
+    border:solid 1px #95b3d7;
+}
+#check_table th{
+    height:50px;
+    border:solid 1px #95b3d7;
+}
+
+#check_table td{
+
+    border:solid 1px #95b3d7;
+}
+
+td textarea{
+    width:99%;
+    border:none;
+    overflow:auto;
+}
+#verifyMsg td{
+    border:solid 1px #95b3d7;
+    border-collapse:collapse;
+    background:#D1EEEE;
+    color:red;
+}
+.bb select{
+    width:100%;
+    height:100%;
+    padding:1px 0;
+}
+#top_table,#review_table{
+    border:solid 1px #95b3d7;
+    border-collapse:collapse;
+}
+#check_table{
+    border:solid 1px #95b3d7;
+    border-collapse:collapse;
+}
+#target_table{
+
+    border-collapse:collapse;
+}
+.ff{
+    border-bottom-style:none;
+    border-bottom-style:hidden;
+    border-left-style:none;
+    border-right-style:none;
+}
+textarea{
+    text-align:center;
+    vertical-align:middle;
+}
+#check_table textarea{
+    text-align:left;
+    vertical-align:middle;
+}
+
+.aa{
+    text-align: left;
+}
+
+.aa,.bb{
+    background:#D1EEEE;
+    text-align: left;
+}
+.cc{
+    background:#D1EEEE;
+    text-align:center;
+}
+.dd{ /* 绿底色 加粗 居中 */
+    background:#D1EEEE;
+    font-weight:bold;
+    text-align:center;
+}
+input.text{
+    text-align:center;
+}
+
+.box {
+    padding:1px;
+    /*display:flex;
+    justify-content:center;
+    align-items:center;*/
+    /*只要三句话就可以实现不定宽高水平垂直居中*/
+}
+
+#suggestR1,#suggestR2,#suggestR3,#reasonR1,#reasonR2,#reasonR3,#suggestR4,#suggestR5,#suggestR6,#suggestR7,#suggestR8{
+    border: solid 1px #95b3d7;
+}
+
+.quantify,.grade,.remark,.member{
+    background-color: rgb(209, 238, 238);
+}
+.quantify {
+    width: 69%;
+}

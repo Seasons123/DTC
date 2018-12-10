@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>评分表格效果示例</title>
+  <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+  <meta http-equiv="description" content="this is my page">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <script>
+      var path = '';
+      var chrId='zSqsrrqcjO3gYepxcorfwxB93ckjFDeRzgRMpk';
+      var roleId='2';
+      var name='';
+      var basePath='';
+      var createId = 'zSqsrrqcjO3gYepxcorfwxB93ckjFDeRzgRMpk';
+      var createName = '';
+
+  </script>
+
+
+  <link href="../plugins/jqueryEasyUi/easyui.css" rel="stylesheet" type="text/css" />
+  <script src="../js/common/jquery/jquery-1.12.3.min.js" type="text/javascript"></script>
+  <script src="../plugins/jqueryEasyUi/jquery.easyui.min.js" type="text/javascript"></script>
+  <script src="../js/reviewNew.js" type="text/javascript"></script><!-- leisc -->
+
+  <script src="../js/zjtreeSearch.js" type="text/javascript"></script><!-- leisc 单位树搜索定位 -->
+  <link rel="stylesheet" type="text/css" href="../css/common/tree.css" />
+  <script src="../js/common/jquery/jquery.ztree.core.js"></script>
+  <link rel="stylesheet" href="../css/markingForm.css">
+  <script>
+      function preview(oper)
+      {
+          window.open(path+"/jsp/print.jsp?expertId="+chrId+"&batchNo="+batchNo+"&enId="
+              +enId+"&itmId="+itmId+"&enName="+$("#enName").val()+"&itmName="+$("#itmName").val()
+              +"&totalPrice="+$("#totalPrice").val());
+          /* if (oper < 10)
+         {
+         bdhtml=window.document.body.innerHTML;//获取当前页的html代码
+         sprnstr="<!--startprint"+oper+"-->";//设置打印开始区域
+         eprnstr="<!--endprint"+oper+"-->";//设置打印结束区域
+         prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+18); //从开始代码向后取html
+
+         prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));//从结束代码向前取html
+         window.document.body.innerHTML=prnhtml;
+         window.print();
+         window.document.body.innerHTML=bdhtml;
+         } else {
+         window.print();
+         }    */
+      }
+  </script>
+
+  <!-- <script type="text/javascript">
+
+printExcel('d:/中共珠海市委组织部_固本强基专项资金_靳祥鹏_评审表.xls');
+
+function  printExcel(obj)
+{
+   var xlsApp = null;
+    try{
+        xlsApp = new ActiveXObject('Excel.Application');    }catch(e)
+    {
+        alert(e+', 原因分析: 浏览器安全级别较高导致不能创建Excel对象或者客户端没有安装Excel软件');
+          return;
+    }
+    //var xlBook = xlsApp.Workbooks.Open('http://'+window.location.host+obj.value);
+    var xlBook = xlsApp.Workbooks.Open(obj);
+    var xlsheet = xlBook.Worksheets(1);
+    xlsApp.Application.Visible = false;
+    xlsApp.visible = false;
+    xlsheet.Printout;
+    xlsApp.Quit();
+    xlsApp=null;
+}   </script>-->
+</head>
+
+<body class="easyui-layout" style="overflow-x:hidden;overflow-y:hidden" scroll="no">
+<div region="west" split="true" title="单位项目列表" style="width:250px;" id="west">
+  <div class="search-bar" id="search"> <!-- 单位树 定位搜索  leisc -->
+    <span>搜索定位：</span><span><input id="keyword" type="text"></span>
+    <!-- <button id="search-bt">搜索</button> -->
+  </div>
+  <table>
+    <tr>
+      <td>
+        评审状态：
+        <select id="isAudit" class="easyui-combobox"  editable="false" panelHeight="45px" name="isAudit" style="width:100px;">
+          <!--
+              <option value="" >全部</option>
+           -->
+          <option value="0" selected>待评审</option>
+          <option value="1" >已评审</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <ul id="tree" class="ztree">
+  </ul>
+</div>
+<div region="center" style="width:500px;height:300px;padding:1px;overflow:hidden;">
+
+  <div id="tabs" class="easyui-tabs" fit="true" border="true" >
+    <!--  珠海 绩效目标修改为从数据库里 形成jsp
+        <div id="mbtable" title="绩效目标" style="padding:20px;overflow: auto;">
+            <iframe id="tag" name="tag" style="height: 950px; width: 930px;" frameborder="0" ></iframe>
+        </div>
+    -->
+
+    <div id="mbtable" title="绩效目标" style="padding:20px;overflow: auto;">
+      <h1 style="text-align:center">2018年珠海市财政预算项目绩效管理目标申报表</h1>
+      <form id="showTargetForm" method="post">
+
+
+        <table id="target_table"  style=" overflow: scroll; width:900px"  >
+          <!--
+              <thead>
+                  <tr>
+                      <th class="aa" width="100px">1111</td>
+                      <th class="aa" width="100px">2222</td>
+                      <th class="aa" width="100px">3333</td>
+                      <th class="aa" width="100px">4444</td>
+                      <th class="aa" width="100px">5555</td>
+                      <th class="aa" width="100px">6666</td>
+                      <th class="aa" width="100px">7777</td>
+                      <th class="aa" width="100px">8888</td>
+                      <th class="aa" width="100px">9999</td>
+                      <td class="aa" width="100px" >0000</td>
+                      <td class="aa" width="100px" >0011</td>
+                      <td class="aa" width="100px" >0022</td>
+                      <td class="aa" width="100px" >0033</td>
+                      <td class="aa" width="100px" >0044</td>
+                      <td class="aa" width="100px" >0055</td>
+                      <td class="aa" width="100px" >0066</td>
+                      <td class="aa" width="100px" >0077</td>
+                      <td class="aa" width="100px" >0088</td>
+
+                  </tr>
+              </thead>
+
+              -->
+
+          <tr>
+            <td class="dd" colspan="2">项目名称</td>
+            <td class="cc" colspan="16">
+              <span id="prjName" name="prjName" ></span>
+            </td>
+
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">项目类型</td>
+            <td class="cc" colspan="16">
+              <span><input name="prjType" id="prjType" style="background:transparent; border:none;"/></span>
+            </td>
+
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">项目属性</td>
+            <td class="cc" colspan="16">
+              <span><input name="prjProperty" id="prjProperty" style="background:transparent; border:none;"/></span>
+            </td>
+
+          </tr>
+          <tr>
+            <td class="aa" colspan="18">
+              &nbsp; &nbsp; &nbsp; &nbsp; 项目申报总金额  <input name="totalMoney" id="totalMoney" style="background:transparent; border:none;"/>  （万元）,
+              其中2018年度预算申报金额   <input name="nextyearMoney" id="nextyearMoney" style="background:transparent; border:none;"/> （万元）。
+            </td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">项目开始时间</td>
+            <td class="cc" colspan="8">
+              <span><input name="startDate" id="startDate" style="background:transparent; border:none;"/></span>
+            </td>
+            <td class="dd" colspan="4">项目完成时间</td>
+            <td class="cc" colspan="4">
+              <span><input name="endDate" id="endDate" style="background:transparent; border:none;"/></span>
+            </td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">单位负责人</td>
+            <td class="cc" colspan="4">
+              <span><input name="prjOwner" id="prjOwner" style="background:transparent; border:none;"/></span>
+            </td>
+
+            <td class="dd" colspan="2">项目负责人</td>
+
+            <td class="cc" colspan="4">
+              <span><input name="prjManager" id="prjManager" style="background:transparent; border:none;"/></span>
+            </td>
+
+            <td class="dd" colspan="2">联系电话</td>
+            <td class="cc" colspan="4">
+              <span><input name="phoneNumber" id="phoneNumber" style="background:transparent; border:none;"/></span>
+            </td>
+
+          </tr>
+
+          <tr>
+            <td class="dd" colspan="2">项目概况</td>
+            <td class="cc" colspan="16">
+              <span id="prjContent" name="prjContent" ></span>
+            </td>
+
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">项目的必要性和可行性</td>
+            <td class="cc" colspan="16">
+              <span id="prjFeasibility" name="prjFeasibility" ></span>
+            </td>
+
+          </tr>
+
+          <!-- 项目概算 子表  -->
+
+          <tr>
+            <!-- rowspan = 4 + 明细行数 -->
+            <td class="dd" class="prjDetailRows" colspan="2" rowspan="4">项目概算</td>
+          </tr>
+
+          <tr>
+            <td class="dd" colspan="4">总额</td>
+            <td class="cc" colspan="12">
+              <span id="prjTotalMoney" name="prjTotalMoney"></span></td>
+          </tr>
+
+          <tr id="addTargetDetali">
+            <td class="dd" colspan="4">明细</td>
+            <td class="dd" colspan="10">用途</td>
+            <td class="dd" colspan="2">金额</td>
+          </tr>
+          <!--
+          <tr >
+              <td class="dd" colspan="4">11</td>
+              <td class="dd" colspan="10">22</td>
+              <td class="dd" colspan="2">22</td>
+          </tr>
+          -->
+
+
+          <tr>
+            <td class="dd" colspan="4">项目资金计算依据和方法</td>
+            <td class="cc" colspan="12">
+              <span id="prjCount" name="prjCount"></span>
+            </td>
+          </tr>
+
+
+
+          <!-- 项目概算 子表 -->
+
+
+
+
+          <tr>
+            <td class="dd" colspan="2" rowspan="5">项目资金情况</td>
+          </tr>
+
+          <tr>
+            <td class="dd" colspan="2" rowspan="3">2016年度项目预算金额</td>
+            <td class="cc" colspan="2" rowspan="3">
+              <span id="lastyearMoney" name="lastyearMoney" ></span>
+
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class="dd" colspan="2">项目实际到位资金</td>
+            <td class="cc" colspan="2">
+              <span id="inplaceMoney" name="inplaceMoney" ></span>
+            </td>
+            <td class="dd" colspan="2">项目实际使用资金</td>
+            <td class="cc" colspan="2">
+              <span id="usedMoney" name="usedMoney" ></span>
+            </td>
+            <td class="dd" colspan="2">项目结余资金</td>
+            <td class="cc" colspan="2">
+              <span id="overplusMoney" name="overplusMoney" ></span>
+            </td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">实际到位率（%）</td>
+            <td class="cc" colspan="2">
+              <span id="inplacePercentage" name="inplacePercentage" ></span>
+            </td>
+            <td class="dd" colspan="2">支出实现率（%）</td>
+            <td class="cc" colspan="2">
+              <span id="usedPercentage" name="usedPercentage" ></span>
+            </td>
+            <td class="dd" colspan="2">项目完成进度（%）</td>
+            <td class="cc" colspan="2">
+              <span id="prjSchedule" name="prjSchedule" ></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="dd" colspan="2">2017年度项目预算金额</td>
+            <td class="cc" colspan="2">
+              <span id="thisyearMoney" name="thisyearMoney" ></span>
+            </td>
+            <td class="dd" colspan="2">说明</td>
+            <td class="cc" colspan="10">
+              <span id="explain" name="explain" ></span>
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class="dd" colspan="2" rowspan="10">绩效目标</td>
+          </tr>
+
+          <tr>
+            <td class="dd" colspan="2">项目预计总体目标概述</td>
+            <td class="cc" colspan="10" height="300px">
+              <span id="prjTarget" name="prjTarget" ></span>
+
+            </td>
+
+            <td class="cc" colspan="4">
+              <span>填报说明：概述项目立项计划达到什么目标，取得什么效果</span>
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class="dd" colspan="2" rowspan="4">预计产出情况</td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">数量</td>
+            <td class="cc" colspan="8">
+              <span id="prjAmount" name="prjAmount" ></span>
+            </td>
+            <td class="cc" colspan="4">
+              <span>填报说明：根据项目预计情况填报，如： ①设备、软件、线路、场地开发、采购或租赁等；②购买或提供的服务数量；③培训班数、人数，研究课题数，调研次数，组织会议数，办案数，宣传数；④项目受益人数，建筑面积；⑤扶持企业、项目数等</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">质量</td>
+            <td class="cc" colspan="8">
+              <span id="prjQuality" name="prjQuality" ></span>
+            </td>
+            <td class="cc" colspan="4">
+              <span>填报说明：根据项目预计情况填报，如：①验收合格率、达标率、办结率； ②购买或开发的产品、服务质量； ③项目所提供的产品、服务质量； ④项目工作任务完成质量； ⑤项目实施后获得的嘉奖等</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">时效</td>
+            <td class="cc" colspan="8">
+              <!--
+                  <span><input name="prjTimeliness" id="prjTimeliness" style="background:transparent; border:none;"/></span>
+              -->
+              <span id="prjTimeliness" name="prjTimeliness" ></span>
+
+            </td>
+            <td class="cc" colspan="4">
+              <span>填报说明：指项目预计完成的进度时效</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="dd" colspan="2" rowspan="4">预计效益情况</td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">经济效益</td>
+            <td class="cc" colspan="8">
+              <span id="prjEconomicEffect" name="prjEconomicEffect" ></span>
+            </td>
+            <td class="cc" colspan="4">
+              <span>填报说明：根据项目预计情况填报，如：①项目实施过程所需经费成本的节约情况；②项目实施后，对降低能耗，节省费用，减轻负担，或者减少损失的效果；③项目实施对社会投资、金融贷款的杠杆作用；④促进相关行业、企业提高效益的作用；⑤促进新经济模式，等</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">公共（社会）效益</td>
+            <td class="cc" colspan="8">
+              <span id="prjSocialEffect" name="prjSocialEffect" ></span>
+            </td>
+            <td class="cc" colspan="4">
+              <span>填报说明：指预计项目实施后对社会公众带来的直接、间接影响，根据项目预计情况填报，如：①解决……问题；②提高……影响力；③提高劳动效率，行政效率，审批效率；④提高服务水平；⑤带动就业；⑥方便群众；⑦减少社会负面因素；⑧改善生产生活、学习、居住……条件；⑨工作质量提高，等</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="dd" colspan="2">生态效益</td>
+            <td class="cc" colspan="8">
+              <span id="prjEcologicalEffect" name="prjEcologicalEffect" ></span>
+            </td>
+            <td class="cc" colspan="4">
+              <span>填报说明：根据项目预计情况确定是否填报，如降低能源损耗；减少污染排放；净化空气、水土；绿化、美化环境等</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="dd" colspan="2">申报单位需要说明的其他情况</td>
+            <td class="cc" colspan="16">
+              <span id="otherInformation" name="otherInformation" ></span>
+            </td>
+          </tr>
+
+
+          <tr >
+            <!-- css #ff 去掉 td边框 不起作用  -->
+            <td class="ff" width="600px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="500px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+            <td class="ff" width="100px" style="border-bottom-style:none;border-left-style:none;border-right-style:none;"></td>
+          </tr>
+
+        </table>
+        <br/>
+      </form>
+      <br/>
+      <br/>
+      <br/>
+
+    </div>
+
+
+
+    <div id="afftable" title="附件">
+      <!-- 				<div id="dlg-buttons" style="text-align:right;height:30px;margin-top:5px;"> -->
+      <!-- 					<a href="#" class="easyui-linkbutton" onclick="viewAffiax()">查看附件</a> -->
+      <!-- 				</div> -->
+      <div id="affix_grid">
+        <table id="affiax_table" >
+          <thead>
+          <tr>
+            <th field="FILE_NAME" width="100">文件名</th>
+            <th field="FILE_TYPE" width="100">文件类型</th>
+            <th field="INPUT_NAME" width="100">上传人</th>
+            <th field="INPUT_DATE" width="100">上传时间</th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div id="pstable" title="评审表" style="padding:20px; overflow: auto;" >
+      <!--startprint1-->
+      <h1 style="text-align:center">2018年市直财政预算项目绩效情况专家评审表</h1>
+      <table id="verifyMsg" style="display:none">
+        <tr>
+          <td width="200px">
+            财政审核意见：
+          </td>
+          <td width="800px">
+            <textarea name="comAdvice" rows="3" id="comAdvice"></textarea>
+          </td>
+        </tr>
+      </table>
+
+
+
+      <form id="addReviewForm" method="post">
+
+        <table id="review_table"  style=" overflow: scroll; width:900px"  >
+          <thead>
+          <tr>
+            <th class="aa" width="100px">项目单位</td>
+            <td class="cc" colspan="2">
+              <span><input name="enName" id="enName" style="background:transparent; border:none;"/></span>
+            </td>
+            <th class="aa" width="100px">项目名称</td>
+            <td class="cc" width="300px" colspan="4">
+              <span><input name="itmName" id="itmName" style="background:transparent; border:none;"/></span>
+            </td>
+            <th class="aa" width="110px">申报金额（万元）</td>
+            <td class="cc" >
+              <span><input name="totalPrice" id="totalPrice" style="background:transparent; border:none;text-align:center;"/></span>
+            </td>
+
+          </tr>
+          <tr>
+            <th class="aa" width="100px">评审内容</td>
+            <th class="aa" width="50px">分值</td>
+            <th class="aa" width="150px">说明</td>
+            <th class="aa" width="100px" colspan="5">评审标准</td>
+            <th class="aa" width="50px">分数</td>
+            <th class="aa" width="100px">备注</td>
+          </tr>
+          </thead>
+          <tr>
+            <td class="aa" rowspan="4">（一）项目合规性及必要性</td>
+            <td class="cc" rowspan="4">20</td>
+            <td class="aa" rowspan="4">指项目是否符合有关法律法规规定，有无上级政府或有关部门批文，并结合申报单位的职能范围，评价项目立项的必要性。</td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">1、项目相关政策依据是否充分（10分）</td>
+            <td class="bb"><textarea id="gradeR1" name="gradeR1" class="easyui-validatebox" required="true" onchange="checkInput(value,10,1),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR1" name="remarkR1" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">2、项目是申报单位履行行政职能所必要的（5分）</td>
+            <td class="bb"><textarea id="gradeR2" name="gradeR2" class="easyui-validatebox" required="true" onchange="checkInput(value,5,2),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR2" name="remarkR2" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">3、项目不可替代性（是否可由已有项目替代）（5分）</td>
+            <td class="bb"><textarea id="gradeR3" name="gradeR3" class="easyui-validatebox" required="true" onchange="checkInput(value,5,3),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR3" name="remarkR3" required="true" ></textarea></td>
+          </tr>
+
+          <tr>
+            <td class="aa" rowspan="4">（二）项目合理性及可行性</td>
+            <td class="cc" rowspan="4">20</td>
+            <td class="aa" rowspan="4">指项目申报所阐述的理由是否合理、充分，项目的实施是否可行。</td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">1、项目是否经过可行性论证（5分）</td>
+            <td class="bb"><textarea id="gradeR4" name="gradeR4" class="easyui-validatebox" required="true" onchange="checkInput(value,5,4),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR4" name="remarkR4" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">2、项目预算的明细构成情况（5分）</td>
+            <td class="bb"><textarea id="gradeR5" name="gradeR5" class="easyui-validatebox" required="true" onchange="checkInput(value,5,5),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR5" name="remarkR5" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">3、项目预算的计算依据是否合理（10分）</td>
+            <td class="bb"><textarea id="gradeR6" name="gradeR6" class="easyui-validatebox" required="true" onchange="checkInput(value,10,6),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR6" name="remarkR6" required="true" ></textarea></td>
+          </tr>
+
+          <tr>
+            <td class="aa" rowspan="5">（三）项目绩效目标</td>
+            <td class="cc" rowspan="5">40</td>
+            <td class="aa" rowspan="5">指项目的总绩效目标、阶段绩效目标是否明确，预期项目完成后实现效益的可信度，单位自行设定的绩效指标的合理性。</td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">1、项目的总绩效目标以及阶段性绩效目标是否清晰（10分）</td>
+            <td class="bb"><textarea id="gradeR7" name="gradeR7" class="easyui-validatebox" required="true" onchange="checkInput(value,10,7),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR7" name="remarkR7" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">2、项目产出目标（包括数量、质量、时效）是否完整、客观、合理（10分）</td>
+            <td class="bb"><textarea id="gradeR8" name="gradeR8" class="easyui-validatebox" required="true" onchange="checkInput(value,10,8),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR8" name="remarkR8" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">3、项目效益目标（包括经济效益、社会效益、生态效益）是否完整、客观、合理（10分）</td>
+            <td class="bb"><textarea id="gradeR9" name="gradeR9" class="easyui-validatebox" required="true" onchange="checkInput(value,10,9),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR9" name="remarkR9" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">4、绩效目标的细化量化是否完整、客观、合理（10分）</td>
+            <td class="bb"><textarea id="gradeR10" name="gradeR10" class="easyui-validatebox" required="true" onchange="checkInput(value,10,10),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR10" name="remarkR10" required="true" ></textarea></td>
+          </tr>
+
+          <tr>
+            <td class="aa" rowspan="4">（四）项目实施的制度保障</td>
+            <td class="cc" rowspan="4">10</td>
+            <td class="aa" rowspan="4">指申报单位制定的各项制度措施能否保证项目资金的安全、完整、有效，项目按时、优质顺利实施。</td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">1、申报单位执行财务制度是否规范（2分）</td>
+            <td class="bb"><textarea id="gradeR11" name="gradeR11" class="easyui-validatebox" required="true" onchange="checkInput(value,2,11),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR11" name="remarkR11" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">2、申报单位有无（或是否计划拟订）项目资金专门管理办法或管理制度（5分）</td>
+            <td class="bb"><textarea id="gradeR12" name="gradeR12" class="easyui-validatebox" required="true" onchange="checkInput(value,5,12),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR12" name="remarkR12" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">3、项目实施是否有明确的组织管理机构（3分）</td>
+            <td class="bb"><textarea id="gradeR13" name="gradeR13" class="easyui-validatebox" required="true" onchange="checkInput(value,3,13),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR13" name="remarkR13" required="true" ></textarea></td>
+          </tr>
+
+          <tr>
+            <td class="aa" rowspan="4">（五）申报材料质量</td>
+            <td class="cc" rowspan="4">10</td>
+            <td class="aa" rowspan="4">评价项目申报材料的真实性、规范性及完整性。</td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">1、申报材料真实和所附依据完整（3分）</td>
+            <td class="bb"><textarea id="gradeR14" name="gradeR14" class="easyui-validatebox" required="true" onchange="checkInput(value,3,14),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR14" name="remarkR14"  required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">2、申报工作是否认真，重视程度（3分）</td>
+            <td class="bb"><textarea id="gradeR15" name="gradeR15" class="easyui-validatebox" required="true" onchange="checkInput(value,3,15),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR15" name="remarkR15" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" colspan="5">3、申报材料是否按时、按要求提交（4分）</td>
+            <td class="bb"><textarea id="gradeR16" name="gradeR16" class="easyui-validatebox" required="true" onchange="checkInput(value,4,16),calScore()"></textarea></td>
+            <td class="bb"><textarea id="remarkR16" name="remarkR16" required="true" ></textarea></td>
+          </tr>
+          <tr>
+            <td class="cc" >合计</td>
+            <td class="cc" >100</td>
+            <td class="aa" colspan="6">如本表格评分后，总分（合计）未达到60分，下表留空为零，不作评分。</td>
+            <td class="bb"><textarea id="gradeR17" name="gradeR17" class="easyui-validatebox" required="true" ></textarea></td>
+            <td class="bb"><textarea id="remarkR17" name="remarkR17" required="true" ></textarea></td>
+          </tr>
+          <tr>
+
+            <td class="cc" ><b>等级评价<b></td>
+            <td class="cc" colspan="7"><b>对项目进行评价等级：90分以上为优，75-89分为良，60-74分为中，60分以下为低，建议不予立项。</b></td>
+            <td class="cc"><textarea id="rankR1" name="rankR1" class="easyui-validatebox" required="true" ></textarea></td>
+            <td class="bb"><textarea id="remarkR18" name="remarkR18" required="true" ></textarea></td>
+          </tr>
+
+
+        </table>
+        <br/>
+        <br/>
+        <br/>
+
+        <table id="check_table"  style=" overflow: scroll; width:900px"  >
+          <thead>
+          <tr>
+            <!--
+                <th class="aa" width="100px">要求</td>
+                <th class="aa" width="300px">说明</td>
+                <th class="aa" width="100px">意见</td>
+                <th class="aa" width="250px">判断依据</td>
+                <th class="aa" width="250px">具体建议</td>
+            -->
+            <th class="aa" width="100px">评审内容</th>
+            <th class="aa" width="150px">评审说明</th>
+            <th class="aa" width="600px" colspan="6">专家评审意见</th>
+
+          </tr>
+          </thead>
+          <tr>
+            <td class="aa">总体评审意见</td>
+            <td class="aa">项目是否立项，预算金额是否合理，是否核减预算金额并说明原因，绩效目标是否客观、合理</td>
+            <td class="bb" colspan="6"><textarea id="suggestR1" name="suggestR1" required="true" rows="12"></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa">项目申报和管理的问题和建议</td>
+            <td class="aa">项目申报和管理中存在问题以及改进意见和建议</td>
+            <td class="bb" colspan="6"><textarea id="suggestR2" name="suggestR2"   required="true" rows="12"></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa" >项目申报绩效目标的问题和建议</td>
+            <td class="aa">对项目申报的预期绩效目标、绩效目标量化指标的客观性、合理性存在的问题和完善建议</td>
+            <td class="bb" colspan="6"><textarea id="suggestR3" name="suggestR3"   required="true" rows="12"></textarea></td>
+          </tr>
+          <tr>
+            <td class="aa">建议项目核减金额（万元）</td>
+            <td class="bb"><textarea id="moneyR1" name="moneyR1"  class="easyui-validatebox" required="true" onchange="calScoreMoney(value,1),checkInputMoney(value,1)" ></textarea></td>
+
+            <td class="aa">其中：2018年度核减金额（万元）</td>
+            <td class="bb"><textarea id="moneyR2" name="moneyR2"  class="easyui-validatebox" required="true" onchange="calScoreMoney(value,2),checkInputMoney(value,2),checkCalMoney()" ></textarea></td>
+
+            <td class="aa">核减后项目总金额（万元）</td>
+            <td class="bb"><textarea id="moneyR3" name="moneyR3"  class="easyui-validatebox" required="true" ></textarea></td>
+
+            <td class="aa">其中：2018年建议安排金额（万元））</td>
+            <td class="bb"><textarea id="moneyR4" name="moneyR4"  class="easyui-validatebox" required="true" ></textarea></td>
+
+
+          </tr>
+
+        </table>
+        <br/>
+        <span>评审人:<input name="createName" disabled id="createName" style="background:transparent; border:none;"/></span>
+        <!-- 				<span>审核人:<input name="verifyName" disabled id="verifyName" style="background:transparent; border:none;"/></span> -->
+        <!-- 				<span>状态:<input name="status" disabled id="status" style="background:transparent; border:none;"/></span> -->
+        <input id="enId" type="hidden" name="enId"/>
+        <input id="reviewState" type="hidden" name="reviewState"/>
+        <input id="itmId" type="hidden" name="itmId"/>
+        <input id="expertId" type="hidden" name="expertId"/>
+        <input id="expertName" type="hidden" name="expertName"/>
+        <input id="stageType" type="hidden" name="stageType"/>
+        <input id="batchNo" type="hidden" name="batchNo"/>
+      </form>
+      <br/>
+      <br/>
+      <br/>
+      <!--endprint1-->
+    </div>
+
+    <div id="uploadAffixTable" title="后补附件">
+      <div id="uploadAffix_grid">
+        <table id="uploadAffix_table">
+          <thead>
+          <tr>
+            <th field="FILE_NAME" width="100">文件名</th>
+            <th field="FILE_TYPE" width="100">文件类型</th>
+            <th field="UPLOAD_USER" width="100">上传人</th>
+            <th field="UPLOAD_DATE" width="100">上传时间</th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="fileBox" title="附件上传" collapsible="false" minimizable="false"
+       maximizable="false" icon="icon-save" style="width:300px;height:130px;padding:5px;background:#fafafa;">
+    <div class="easyui-layout" fit="true">
+      <div region="center" border="false" style="padding:10px;background:#fff;border:1px solid #ccc;">
+        <form id="fileForm" method="post" enctype= "multipart/form-data">
+          <input id="chooseFile" editable="false" name="chooseFile" type="file" /><br/>
+          <input type='hidden' name ='batchNo' id="batchNo2" />
+          <input type='hidden' name ='enId' id="enId2" />
+          <input type='hidden' name ='itmId' id="itmId2" />
+          <input type='hidden' name ='businessType' id="businessType" />
+          <input type="hidden" name='uploadUser' id="uploadUser" />
+        </form>
+      </div>
+      <div region="south" border="false" style="text-align:center;height:30px;line-height:30px;">
+        <a id="btnOk" class="easyui-linkbutton" icon="icon-ok" onclick="impFile();">确定</a>
+        <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" onclick="cancelFile()">取消</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="dlg-buttons" style="text-align:center">
+  <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="saveItem()">保存</a>
+  <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#addExpert').dialog('close')">取消</a>
+</div>
+
+
+<form action="expCommon" name='expCommonForm' id='expCommonForm' target='innerFrame' method="post">
+
+  <input type='hidden' name ='batchNo' id="batchNo1" />
+  <input type='hidden' name ='enId' id="enId1" />
+  <input type='hidden' name ='itmId' id="itmId1" />
+  <input type='hidden' name ='expertId' id="expertId1" /><!-- leisc -->
+  <input type='hidden' name ='expTag' id="expTag" /><!-- 区别导出评审表和附件 -->
+</form>
+<form action="printAppraise" name='printAppraiseForm' id='printAppraiseForm' target='innerFrame' method="post">
+
+  <input type='hidden' name ='batchNo' id="batchNo3" />
+  <input type='hidden' name ='enId' id="enId3" />
+  <input type='hidden' name ='itmId' id="itmId3" />
+  <input type='hidden' name ='expertId' id="expertId3" /><!-- leisc -->
+  <input type='hidden' name ='expTag' id="expTag3" /><!-- 区别导出评审表和附件 -->
+</form>
+<iframe name='innerFrame' style="display:none" width=0 height=0></iframe>
+
+</body>
+<!--引入js-->
+<script src="../markingFormShow/markingFormShow.js"></script>
+</html>

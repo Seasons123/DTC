@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>评分样表demo3-组员评分表</title>
+
+    <link href="../../plugins/jqueryEasyUi/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../plugins/jqueryEasyUi/themes/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../js/common/jquery/jquery-1.12.3.min.js" type="text/javascript"></script>
+    <script src="../../plugins/jqueryEasyUi/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../plugins/jqueryEasyUi/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../../css/markingForm.css">
+
+</head>
+
+<body class="easyui-layout"  >
+<div region="center" class="box">
+
+    <div id="pstable"  style="padding:20px; overflow: auto;" >
+        <!--startprint1-->
+        <h1 style="text-align:center">北京市剧院运营服务平台项目指标体系及打分表</h1>
+        <div id="dlg-buttons" style="text-align:right">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" id="editBtn" onclick="commonFn.editReview()">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-save" id="saveBtn" onclick="commonFn.saveReview()">保存</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-submit" id="submitBtn" onclick="commonFn.submitReview()">提交</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" id="cancelBtn" onclick="commonFn.cancelReview()">取消</a>
+        </div>
+        <br/>
+        <form id="addReviewForm" method="post" style="text-align:center">
+            <!--上表-->
+            <table id="top_table"  style=" overflow: scroll; width:900px;margin:auto;"  >
+                <thead>
+                <tr>
+                    <th class="aa" width="100px">项目单位</td>
+                    <td class="cc" colspan="2">
+                        <span><input name="enName" id="enName" style="background:transparent; border:none;" /></span>
+                    </td>
+                    <th class="aa" width="100px">项目名称</td>
+                    <td class="cc" width="300px" colspan="4">
+                        <span><input name="itmName" id="itmName" style="background:transparent; border:none;" /></span>
+                    </td>
+                    <th class="aa" width="110px">申报金额（万元）</td>
+                    <td class="cc" >
+                        <span><input name="totalPrice" id="totalPrice" style="background:transparent; border:none;text-align:center;" /></span>
+                    </td>
+                </tr>
+                </thead>
+            </table>
+            <br/>
+            <!--主表-->
+            <table id="review_table"  style=" overflow: scroll; width:900px;margin:auto;"  >
+                <thead id="tableHeader">
+                </thead>
+                <tbody id="tableBody" >
+                </tbody>
+            </table>
+            <br/>
+            <br/>
+            <br/>
+            <!--下表-->
+            <table id="check_table"  style=" overflow: scroll; width:900px;margin:auto;"  >
+                <thead>
+                <tr>
+                    <th class="aa" width="100px">评审内容</th>
+                    <th class="aa" width="750px" colspan="7">专家评审意见</th>
+
+                </tr>
+                </thead>
+                <tr>
+                    <td class="aa">总体评审意见</td>
+                    <td class="bb" colspan="7"><textarea id="suggestR1" name="suggestR1" required="true" rows="12"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="aa">项目申报和管理的问题和建议</td>
+                    <td class="bb" colspan="7"><textarea id="suggestR2" name="suggestR2"   required="true" rows="12"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="aa" >项目申报绩效目标的问题和建议</td>
+                    <td class="bb" colspan="7"><textarea id="suggestR3" name="suggestR3"   required="true" rows="12"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="aa">建议项目核减金额（万元）</td>
+                    <td class="bb"><textarea id="moneyR1" name="moneyR1"  class="easyui-validatebox" required="true" onchange="calScoreMoney(value,1),checkInputMoney(value,1)" ></textarea></td>
+                    <td class="aa">其中：2018年度核减金额（万元）</td>
+                    <td class="bb"><textarea id="moneyR2" name="moneyR2"  class="easyui-validatebox" required="true" onchange="calScoreMoney(value,2),checkInputMoney(value,2),checkCalMoney()" ></textarea></td>
+                    <td class="aa">核减后项目总金额（万元）</td>
+                    <td class="bb"><textarea id="moneyR3" name="moneyR3"  class="easyui-validatebox" required="true" ></textarea></td>
+                    <td class="aa">其中：2018年建议安排金额（万元））</td>
+                    <td class="bb"><textarea id="moneyR4" name="moneyR4"  class="easyui-validatebox" required="true" ></textarea></td>
+                </tr>
+
+            </table>
+            <br/>
+            <span>评审人:<input name="createName" disabled id="createName" style="background:transparent; border:none;"/></span>
+        </form>
+        <br/>
+        <br/>
+        <br/>
+        <!--endprint1-->
+    </div>
+</div>
+
+<script src="../../plugins/knockout/knockout-3.2.0.debug.js"></script>
+<script src="../../plugins/uui/js/u.js"></script>
+<script src="../../plugins/ip/js/ip.js"></script>
+<script src="../../js/commonFn.js"></script>
+<script src="../../js/public.js"></script>
+<script src="dynamicTable.js"></script>
+</body>
+</html>

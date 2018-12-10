@@ -1,0 +1,10 @@
+.panel-header, 
+.panel-body{
+	border-color: #ccc;
+}
+.checkbox{
+	border: none;
+    border-radius: inherit;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}

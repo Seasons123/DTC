@@ -1,0 +1,319 @@
+input {
+    outline: none;
+}
+ul li{
+    list-style-type:none;
+}
+a {
+    text-decoration:none;
+    color: black;
+}
+textarea {
+	vertical-align:top;
+}
+a:hover {
+    color: #fc804c;
+}
+.active {
+    background: #fff;
+}
+.p5 {
+	padding: 5px;
+}
+.pr3{
+	padding-right: 3px;
+}
+.h {
+	height:100%;
+}
+/*按钮样式*/
+.csof-btns-content{
+	background:#fff;margin-top: 10px;margin-left: 5px;padding: 0;
+}
+.form-search>.btn ,
+.csof-btn {
+	background: #EDF5FF;
+    border: 1px solid #99BCEB;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #4383DD;
+    margin: 0 5px;
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn{
+	background: #F9F9F9;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+    color: #B3B3B3;
+}
+.btn:hover, .btn:focus, .btn.focus {
+    background-color: rgba(0,0,1.8,0);
+    color: #4383DD;
+    text-decoration: none;
+}
+.right-search{
+	margin-right: 15px;
+}
+/*字体样式*/
+.csof-font{
+	font-family:"Microsoft YaHei",Arial,Helvetica,sans-serif,"宋体";
+	font-size:13px;
+}
+select {
+    height: 30px;
+    border: 1px solid #ccc;
+}
+textarea {
+	border: 1px solid #ccc;
+    border-radius: 4px;
+}
+/*清除浮动*/
+.clear{ clear:both}
+/*li样式加上不换行*/
+.csof-li {
+	list-style: none;
+    list-style-image: url(../csofimages/li.png);
+	white-space:nowrap; 
+    text-overflow:ellipsis; 
+    overflow: hidden; 
+}
+/*页签样式*/
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #fff;
+    color: #555;
+    border-radius: 4px 4px 0 0;
+}
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+.nav-tabs>li {
+    margin-top: 2px;
+}
+.nav-tabs>li>a {
+    background-color: #ddd;
+}
+label.text-right {
+    height: 30px;
+    line-height: 30px;
+}
+/*splitter拖动条*/
+.jqx-fill-state-pressed {
+    background: #4383DD;
+}
+/*右表标题*/
+.rightTable-title {
+    color: #169BD5;
+}
+.rightTable-recodeNum {
+	color: #bababa;
+	float:right;margin-right: 5px;letter-spacing: 3px;
+}
+.rightTable-title-status{
+    color: rgba(51, 51, 51, 0.84);
+}
+.gridSumNum{
+	letter-spacing: 0;
+}
+.grid-title{
+	height: 21px;padding: 0 5px;
+}
+.addWorkTitle {
+	color :#1871C1;
+    text-align: center;
+    line-height: normal;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
+    border-bottom: 1px solid #1871C1;
+}
+/*main-content主要内容*/
+#main-content{
+	padding: 0;margin: 10px;
+}
+#left-main-content{
+	width:296px;padding: 0;
+}
+.tree-search-div {
+	margin: 5px 5px 0 5px;width:97%;
+}
+.treeDiv {
+	width: 100%;overflow: auto;padding:0;margin: 0;
+}
+.right-main-content{
+	padding: 0;border-left: 0;
+}
+#righ-tab-ul{
+	background-color: rgba(242, 242, 242, 1);
+}
+.righ-tab-ul{
+	background-color: rgba(242, 242, 242, 1);
+}
+.tab-content{
+	padding: 0;
+}
+.tab-panel{
+	padding: 5px 0 0 0;width: 100%;height:100%;
+}
+.panel{
+	    border: 0;
+}
+.tab-panel-file{
+    padding: 0;width: 100%;
+}
+/*右表有页签*/
+.rightTableGrid-hasnav{
+	padding: 0 5px;
+}
+/*右表没有页签*/
+.rightTableGrid-nonav{
+	padding: 0 5px;
+}
+.rightTableGrid{
+	padding: 0 5px;
+}
+.file-iframe{
+	width:100%;height:100%;border: 0;
+}
+/*右表上下两表结构*/
+.top-rightTableGrid{
+	height:100%;
+}
+.bottom-rightTableGrid{
+	height:100%;
+}
+#right-top-bottom-content{
+	border-bottom: 0;
+	width: 100%;
+    height: 100%;
+}
+.two-panel-div{
+	padding: 5px 0 0 0;
+	width: 100%;
+    height: 100%;
+}
+/* .top-panel-div{
+	overflow:auto;
+}
+.bottom-panel-div{
+		overflow:auto;
+} */
+/*模态框样式*/
+.u-pearls .u-step.current .u-step-number, .u-pearls .u-step.current .u-step-icon{
+    color:  #108ee9;
+    border-color:  #108ee9;
+}
+.u-pearls .u-step.done .u-step-number, .u-pearls .u-step.done .u-step-icon{
+    background-color:  #108ee9;
+    border-color: #108ee9;
+}
+.u-pearls .u-step.current:before, .u-pearls .u-step.current:after{
+    background-color: #108ee9;
+    border-color: #108ee9;
+}
+.step-doing {
+    color: #108ee9;
+}
+.u-pearls .u-step.done:before, .u-pearls .u-step.done:after {
+    background-color: #108ee9;
+}
+.csof-modal{
+	height: 97vh;
+    padding: 1.5vh 0;
+}
+.csof-modal-content{
+	height: 480px;
+}
+.csof-modal-body{
+	height: 405px;
+}
+.modal-dialog{
+	margin-top: 0;
+}
+.modal-footer{
+	padding: 6px;
+}
+
+/* grid百分比布局 
+.u-grid-noScroll{height:33px;}*/
+.tabbed-content{
+	height: -moz-calc(100% - 34px);
+	height: -webkit-calc(100% - 34px);
+	height: calc(100% - 34px);
+}
+.grid-container-sm{
+	height: -moz-calc(100% - 10px);
+	height: -webkit-calc(100% - 10px);
+	height: calc(100% - 10px);
+}
+.grid-container-single{
+	height: -moz-calc(100% + 27px);
+	height: -webkit-calc(100% + 27px);
+	height: calc(100% + 27px);
+}
+.grid-container{
+	height: -moz-calc(100% - 54px);
+	height: -webkit-calc(100% - 54px);
+	height: calc(100% - 54px);
+}
+.grid-container-sm-open{
+	height: -moz-calc(100% - 194px);
+	height: -webkit-calc(100% - 194px);
+	height: calc(100% - 194px);
+}
+.grid-container-open{
+	height: -moz-calc(100% - 154px);
+	height: -webkit-calc(100% - 154px);
+	height: calc(100% - 154px);
+}
+
+.u-grid-content{
+	height: -moz-calc(100% - 36px);
+	height: -webkit-calc(100% - 36px);
+	height: calc(100% - 36px);
+}
+	/* 带分页表格 */
+.tabbed-grid div[u-meta] {
+	height: -moz-calc(100% - 36px);
+	height: -webkit-calc(100% - 36px);
+    height: calc(100% - 36px);
+}
+	/* 带分页表格  和共几笔 */
+.tabbedTol-grid div[u-meta] {
+	height: -moz-calc(100% - 45px);
+	height: -webkit-calc(100% - 45px);
+    height: calc(100% - 45px);
+}
+	/* 不带分页表格 */
+.tabbed-grid-nopage div[u-meta] {
+	height:100%
+}
+.u-grid,.u-grid-grid,.u-grid-content-div{
+	height:100%!important;
+}
+.u-grid.u-grid-header-drag-clue,.u-pagination{
+	height:auto!important;
+}
+	/* 上下分布式表格 带分页 */
+.topBottom-grid-page div[u-meta] {
+	height: -moz-calc(100% - 66px);
+	height: -webkit-calc(100% - 66px);
+    height: calc(100% - 66px);
+}
+	/* 上下分布式表格 不带分页 */
+.topBottom-grid div[u-meta] {
+	height: -moz-calc(100% - 24px);
+	height: -webkit-calc(100% - 24px);
+    height: calc(100% - 24px);
+}
+ 	/* 带页签表格 */
+.nav-grid {
+	height: -moz-calc(100% - 32px);
+	height: -webkit-calc(100% - 32px);
+    height: calc(100% - 32px);
+} 	
+/*select2*/
+.select2-container--open{  
+        z-index:9999999           
+} 
+.select2-selection__rendered{
+	height:30px;
+}
