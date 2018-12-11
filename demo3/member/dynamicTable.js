@@ -307,10 +307,10 @@ TablecommonFn = {
                     //$('#suggestR1').val(scoreSumInfo.suggestR1);//目前还没有把建议的数据设计进来
                     //$('#suggestR2').val(scoreSumInfo.suggestR2);
                     //$('#suggestR3').val(scoreSumInfo.suggestR3);
-                    $('#moneyR1').val(scoreSumInfo.prjReduceAmount);
-                    $('#moneyR2').val(scoreSumInfo.prjReducedAmount);
-                    $('#moneyR3').val(scoreSumInfo.prjYrReduceAmount);
-                    $('#moneyR4').val(scoreSumInfo.prjYrAmount);
+                    $('#moneyR1').val(scoreSumInfo[0].prjReduceAmount);
+                    $('#moneyR2').val(scoreSumInfo[0].prjReducedAmount);
+                    $('#moneyR3').val(scoreSumInfo[0].prjYrReduceAmount);
+                    $('#moneyR4').val(scoreSumInfo[0].prjYrAmount);
                 }
             }
         });

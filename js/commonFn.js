@@ -193,12 +193,12 @@ var commonFn = {
         });
         $("#scoreSum").val(score.toFixed(1));
 
-        for(var i=0; i<expertInfoGlobal.eval_rank.length; i++){
-            var period = expertInfoGlobal.eval_rank[i].period.split(",");
+        for(var i=0; i<rankGlobal.length; i++){
+            var period = rankGlobal[i].period.split(",");
             var min = parseInt(period[0]);
             var max = parseInt(period[1]);
             if(score>min && score<max){
-                $("#evalRank").val(expertInfoGlobal.eval_rank[i].name);
+                $("#evalRank").val(rankGlobal[i].name);
             }
         }
     },
