@@ -3,21 +3,14 @@ var formUrl = {} ;
 switch (sever){
     case "0":
         formUrl = {
-            "markingFormShow": 'http://47.105.52.254:7001/df/file/getreview.do?',
-            "previewFile": 'http://47.105.52.254:7001/df/file/savescore.do?'
+            "projectMain": '../../data/projectMain/ProjectMain.json',
+            "taskKpi": '../../data/taskKpi/TaskKpi.json'
         };
         break ;
     case  "1":
         formUrl = {
-            "getReviewMember": '../../data/targetMember.json',
-            "getReviewManager": '../../data/targetManager.json',
-            "getReviewManagerEmpty": '../../data/targetManagerEmpty.json',
-            "previewFile": '../../data/score/scoreTest0.json'
+            "projectMain": 'http://10.15.1.34:8081/df-pe/api/ProjectMain?',
+            "taskKpi": 'http://10.15.1.34:8081/df-pe/api/TaskKpi?'
         };
         break;
-    case  "2":
-        formUrl = {
-            "getReview": 'http://localhost:8002/df/pe/expert/getreview.do?',
-            "saveExpertScore": 'http://localhost:8002/df/pe/expert/saveexpertscore.do?'
-        }
 }
