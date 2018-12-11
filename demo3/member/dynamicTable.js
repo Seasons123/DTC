@@ -2,7 +2,7 @@ var tdNum = 0;
 var expertInfoGlobal={};
 var projectInfoGlobal={};
 var kpiTableInfoGlobal={};
-var evalContent={};
+var evalContent=[];
 var checkedArry=[];//存放选中单选按钮的id
 var scoreList=[];
 var rolename="groupmanager";//角色
@@ -52,17 +52,19 @@ TablecommonFn = {
                 if(tableInfo.message){
                     $.messager.alert('错误', tableInfo.message, 'error');
                 }else{
-                    kpiTableInfoGlobal = tableInfo;
                     //行排序
-                    evalContent = kpiTableInfoGlobal.sort(commonFn.sortByPro('orderNum'));
+                    kpiTableInfoGlobal = tableInfo.sort(commonFn.sortByPro('orderNum'));
+                    for(var i = 0;i < kpiTableInfoGlobal.length ;i ++) {
+                        evalContent.push(kpiTableInfoGlobal[i].kpi);   //每次都push一行
+                    }
                     console.log(evalContent);
                     //表格左侧json数据转换start
                     var data = [];
                     var trNum =evalContent.length;
-                    levelNum = parseInt(evalContent[0].kpi.kpiLevel); //一共有几级指标
+                    levelNum = parseInt(evalContent[0].kpiLevel); //一共有几级指标
                     TablecommonFn.initTableHeader(levelNum);
                     tdNum = levelNum ;
-                    var indicatorArry = [];
+                    var indicatorArray = [];
                     var indicatorObject = {};
 
                     //声明全局变量，生成计算每一列已经生成多少行，用于向data中塞值时使用
@@ -71,76 +73,53 @@ TablecommonFn = {
                     }
                     //获取每一级指标需要合并多少行。注意每一级可能会有多个，如二级指标有三个。无需计算最后一个指标的合并行，都为1。
                     for(var i=1;i<levelNum;i++) {
-                        creact_parentIdValueCount(i); //初始化合并行
+                        create_parentIdValueCount(i); //初始化合并行
                         mergeRowsCal(i); //合并行计算
-                        create_indicatorArry(i); //创建指标对象
+                        create_indicatorArray(i); //创建指标对象
                     }
-                    function creact_parentIdValueCount(num){
-                        var parentId = "chr_id" + num ;
+                    function create_parentIdValueCount(num){
+                        var parent = "parentKpi" + num ;
                         var parentIdValue = ""; //id的值，用于对比
-                        for(var m = 0;m < trNum; m++) {
+                        for(var m = 0;m < evalContent.length; m++) {
                             for (var n in evalContent[m]) {
-                                if ((n == parentId && parentIdValue == "")|| (n == parentId && parentIdValue != evalContent[m][n])) {
-                                    parentIdValue = evalContent[m][n];
+                                if ((n == parent && parentIdValue == "")|| (n == parent && parentIdValue != evalContent[m][n].id)) {
+                                    parentIdValue = evalContent[m][n].id;
                                     window[parentIdValue + "Count"] = 0;
                                 }
                             }
                         }
                     }
                     function mergeRowsCal(num) {
-                        var parentId = "chr_id" + num ;
+                        var parent = "parentKpi" + num ;
                         var parentIdValue = "";
-                        for(var m = 0;m < trNum + 1; m++) {
+                        for(var m = 0;m < evalContent.length + 1; m++) {
                             for (var n in evalContent[m]) {
-                                if (n == parentId) {
-                                    parentIdValue = evalContent[m][n];
+                                if (n == parent) {
+                                    parentIdValue = evalContent[m][n].id;
                                     window[parentIdValue + "Count"]++;
                                 }
                             }
                         }
-
                     }
-                    function create_indicatorArry(num){
-                        var parentId = "chr_id" + num ;
-                        var indicatorsLevel = num ;
-                        var parentIdValue = ""; //id的值
-                        var parentIdName = "kpi_name" + num;
-                        var parentIdNameValue = "";
-                        var parentIdweight = "kpi_weight" + num;
-                        var parentIdweightValue = "";
-                        var parentIdExplain = "kpi_explain" + num;
-                        var parentIdExplainValue = "";
-                        for(var m = 0;m < trNum; m++) {
+                    function create_indicatorArray(num){
+                        var parent = "parentKpi" + num ;
+                        var parentIdValue = "";
+                        for(var m = 0;m < evalContent.length; m++) {
                             for (var n in evalContent[m]) {
-                                if ((n == parentId && parentIdValue == "")|| (n == parentId && parentIdValue != evalContent[m][n])) {
+                                if ((n == parent && parentIdValue == "")|| (n == parent && parentIdValue != evalContent[m][n].id)) {
                                     //定义对象,拿三个数据：指标的id、指标的名字、指标的合并行
-                                    parentIdValue = evalContent[m][n];
+                                    parentValue = evalContent[m][n];
+                                    parentIdValue = evalContent[m][n].id;
                                     mergeRows = window[parentIdValue + "Count"];
-                                    for (var n in evalContent[m]) {
-                                        if (n == parentIdName) {
-                                            parentIdNameValue = evalContent[m][n];
-                                        }
-                                    }
-                                    for (var n in evalContent[m]) {
-                                        if (n == parentIdweight) {
-                                            parentIdweightValue = evalContent[m][n];
-                                        }
-                                    }
-                                    for (var n in evalContent[m]) {
-                                        if (n == parentIdExplain) {
-                                            parentIdExplainValue = evalContent[m][n];
-                                        }
-                                    }
                                     indicatorObject = {
-                                        id: parentIdValue,
-                                        level: indicatorsLevel,
-                                        name: parentIdNameValue,
+                                        id: parentValue.id,
+                                        level: num,
+                                        name: parentValue.kpiName,
                                         rows: mergeRows,
-                                        weight: parentIdweightValue,
-                                        explain: parentIdExplainValue
+                                        weight: parentValue.kpiWeight,
+                                        explain: parentValue.kpiExplain
                                     };
-                                    indicatorArry.push(indicatorObject);
-
+                                    indicatorArray.push(indicatorObject);
                                 }
                             }
                         }
@@ -149,21 +128,21 @@ TablecommonFn = {
                     for(var i= 0;i < trNum; i++) {
                         indicatorObject = {
                             id: evalContent[i].id,
-                            level: evalContent[i].kpi_level,
-                            name: evalContent[i].kpi_name,
+                            level: evalContent[i].kpiLevel,
+                            name: evalContent[i].kpiName,
                             rows: 1,
-                            weight: evalContent[i].kpi_weight,
-                            explain: evalContent[i].kpi_explain,
-                            score: evalContent[i].kpi_score,
-                            remark: evalContent[i].kpi_remark,
-                            standard: evalContent[i].kpi_stand,
-                            type: evalContent[i].value_type,
-                            unit: evalContent[i].kpi_unit,
-                            defaultScore: evalContent[i].default_score
+                            weight: kpiTableInfoGlobal[i].kpiWeight,
+                            explain: evalContent[i].kpiExplain,
+                            score: evalContent[i].kpiScore,
+                            remark: evalContent[i].kpiRemark,
+                            standard: JSON.parse(kpiTableInfoGlobal[i].kpiStandard),
+                            type: evalContent[i].valueType,
+                            unit: evalContent[i].kpiUnit,
+                            defaultScore: ""
                         };
-                        indicatorArry.push(indicatorObject);
+                        indicatorArray.push(indicatorObject);
                     }
-                    console.log(indicatorArry);
+                    console.log(indicatorArray);
 
                     //生成目标行列json空值数据
                     for(var i = 0;i < trNum ;i ++) {
@@ -178,28 +157,28 @@ TablecommonFn = {
                     console.log(data);
 
                     //遍历indicatorArry，向data中塞值
-                    for(var i = 0; i< indicatorArry.length; i ++){
-                        var num = indicatorArry[i].level;
+                    for(var i = 0; i< indicatorArray.length; i ++){
+                        var num = indicatorArray[i].level;
                         var tdIndicatorName = "t" + num;
                         //var tdtdIndicatorweight = "t" + (2 * num);
                         var tdIndicatorNameTrCount = "td" + num + "trCount";
                         var temp = window[tdIndicatorNameTrCount];
-                        for(var j = 0; j < indicatorArry[i].rows ; j ++){
+                        for(var j = 0; j < indicatorArray[i].rows ; j ++){
                             for (var n in data[temp]) {
                                 if (n == tdIndicatorName) {
                                     data[temp][n] = {
-                                        name: indicatorArry[i].name,
-                                        weight: indicatorArry[i].weight,
-                                        rows: indicatorArry[i].rows,
-                                        explain: indicatorArry[i].explain,
-                                        id: indicatorArry[i].id,
-                                        score: indicatorArry[i].score,
-                                        remark: indicatorArry[i].remark,
-                                        groupMemberInfo: indicatorArry[i].groupMemberInfo,
-                                        standard: indicatorArry[i].standard,
-                                        type: indicatorArry[i].type,
-                                        unit: indicatorArry[i].unit,
-                                        defaultScore: indicatorArry[i].defaultScore
+                                        name: indicatorArray[i].name,
+                                        weight: indicatorArray[i].weight,
+                                        rows: indicatorArray[i].rows,
+                                        explain: indicatorArray[i].explain,
+                                        id: indicatorArray[i].id,
+                                        score: indicatorArray[i].score,
+                                        remark: indicatorArray[i].remark,
+                                        groupMemberInfo: indicatorArray[i].groupMemberInfo,
+                                        standard: indicatorArray[i].standard,
+                                        type: indicatorArray[i].type,
+                                        unit: indicatorArray[i].unit,
+                                        defaultScore: indicatorArray[i].defaultScore
                                     };
                                     window[tdIndicatorNameTrCount] ++ ;
                                     temp = window[tdIndicatorNameTrCount];

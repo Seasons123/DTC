@@ -57,7 +57,7 @@
   },
   "orderNum": 1,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\": 1,\n  \"kpi_stand_name\": \"平台试运行进度按计划进行，得2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"2\",\n  \"short_name\": \"按计划\",\n  \"x_period\": \"\",\n  \"y_period\": \"2,2\",\n  \"order_num\": 1\n}, {\n  \"id\": 2,\n  \"kpi_stand_name\": \"平台试运行进度未按计划进行，得0-2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"0,2\",\n  \"short_name\": \"未按计划\",\n  \"x_period\": \"\",\n  \"y_period\": \"0,2\",\n  \"order_num\": \"2\"\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -119,7 +119,7 @@
   },
   "orderNum": 2,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\":3,\n  \"kpi_stand_name\": \"平台正式运行进度按计划进行，得2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"2\",\n  \"short_name\": \"按计划\",\n  \"x_period\": \"\",\n  \"y_period\": \"2,2\",\n  \"order_num\": \"1\"\n}, {\n  \"id\": 4,\n  \"kpi_stand_name\": \"平台正式运行进度未按计划进行，得0-2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"0,2\",\n  \"short_name\": \"未按计划\",\n  \"x_period\": \"\",\n  \"y_period\": \"0,2\",\n  \"order_num\": 2\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -181,7 +181,7 @@
   },
   "orderNum": 3,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\": 5,\n  \"kpi_stand_name\": \"成本控制措施健全，得2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"2\",\n  \"short_name\": \"健全\",\n  \"x_period\": \"\",\n  \"y_period\": \"2,2\",\n  \"order_num\": \"1\"\n}, {\n  \"id\": 6,\n  \"kpi_stand_name\": \"成本控制措施基本健全，得1-2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"1,2\",\n  \"short_name\": \"基本健全\",\n  \"x_period\": \"\",\n  \"y_period\": \"1,2\",\n  \"order_num\": 2\n}, {\n  \"id\": 7,\n  \"kpi_stand_name\": \"成本控制措施不健全，得0-1分\",\n  \"f_key\": \"\",\n  \"f_value\": \"0,1\",\n  \"short_name\": \"不健全\",\n  \"x_period\": \"\",\n  \"y_period\": \"0,1\",\n  \"order_num\": 3\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -243,7 +243,7 @@
   },
   "orderNum": 4,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\": 8,\n  \"kpi_stand_name\": \"成本与预算超出10%，得3分\",\n  \"f_key\": \"x<5\",\n  \"f_value\": \"3\",\n  \"short_name\": \"\",\n  \"x_period\": \"10\",\n  \"y_period\": \"3,3\",\n  \"order_num\": 1\n}, {\n  \"id\": 9,\n  \"kpi_stand_name\": \"成本与预算偏差在5%-10%以内，得1.5-3分\",\n  \"f_key\": \"x>=5&&xx<10\",\n  \"f_value\": \"1.5,3\",\n  \"short_name\": \"\",\n  \"x_period\": \"5,10\",\n  \"y_period\": \"1.5,3\",\n  \"order_num\": 2\n}, {\n  \"id\": 10,\n  \"kpi_stand_name\": \"成本与预算偏差在5%以内，得0-1.5分\",\n  \"f_key\": \"x>=10\",\n  \"f_value\": \"0,1.5\",\n  \"short_name\": \"\",\n  \"x_period\": \"0,5\",\n  \"y_period\": \"0,1.5\",\n  \"order_num\": 3\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -305,7 +305,7 @@
   },
   "orderNum": 5,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\":11,\n  \"kpi_stand_name\": \"入围剧目的票房总收入在800万及以上，得3分\",\n  \"f_key\": \"x>=800\",\n  \"f_value\": \"3\",\n  \"short_name\": \"\",\n  \"x_period\": \"800\",\n  \"y_period\": \"3,3\",\n  \"order_num\": 1\n}, {\n  \"id\": 12,\n  \"kpi_stand_name\": \"入围剧目的票房总收入小于800万并且大于500万，得1.5-3分\",\n  \"f_key\": \"x<800 && x>=500\",\n  \"f_value\": \"1+(x-500)/300\",\n  \"short_name\": \"\",\n  \"x_period\": \"500,800\",\n  \"y_period\": \"1.5,3\",\n  \"order_num\": 2\n}, {\n  \"id\":13,\n  \"kpi_stand_name\": \"入围剧目的票房总收入小于500万，得0-1.5分\",\n  \"f_key\": \"x<500\",\n  \"f_value\": \"x/500\",\n  \"short_name\": \"\",\n  \"x_period\": \"0,500\",\n  \"y_period\": \"0,1,5\",\n  \"order_num\": 3\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -367,7 +367,7 @@
   },
   "orderNum": 6,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\": 14,\n  \"kpi_stand_name\": \"合作剧场的年收入提高3%-5%，得3分\",\n  \"f_key\": \"x>=3&&x<=5\",\n  \"f_value\": \"3\",\n  \"short_name\": \"\",\n  \"x_period\": \"3,5\",\n  \"y_period\": \"3,3\",\n  \"order_num\": 1\n}, {\n  \"id\": 15,\n  \"kpi_stand_name\": \"合作剧场的年收入提高1%-3%，得1-3分\",\n  \"f_key\": \"x>=1&&x<3\",\n  \"f_value\": \"1,3\",\n  \"short_name\": \"\",\n  \"x_period\": \"1,3\",\n  \"y_period\": \"1,3\",\n  \"order_num\": 2\n}, {\n  \"id\": 16,\n  \"kpi_stand_name\": \"合作剧场的年收入提高1%以内，得0.5-1分\",\n  \"f_key\": \"x>=0&&x<1\",\n  \"f_value\": \"0.5,1\",\n  \"short_name\": \"\",\n  \"x_period\": \"0,1\",\n  \"y_period\": \"0.5,1\",\n  \"order_num\": 3\n}, {\n  \"id\": 17,\n  \"kpi_stand_name\": \"合作剧场的年收入未提高，得0分\",\n  \"f_key\": \"0\",\n  \"f_value\": \"0\",\n  \"short_name\": \"\",\n  \"x_period\": \"0,0\",\n  \"y_period\": \"0,0\",\n  \"order_num\": 4\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -429,7 +429,7 @@
   },
   "orderNum": 7,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\": 18,\n  \"kpi_stand_name\": \"文化弘扬与传承效益明显，得3分\",\n  \"f_key\": \"\",\n  \"f_value\": \"3\",\n  \"short_name\": \"效益明显\",\n  \"x_period\": \"\",\n  \"y_period\": \"3,3\",\n  \"order_num\": 1\n}, {\n  \"id\": 19,\n  \"kpi_stand_name\": \"文化弘扬与传承效益一般，得1.5-3分\",\n  \"f_key\": \"\",\n  \"f_value\": \"1.5,3\",\n  \"short_name\": \"效益一般\",\n  \"x_period\": \"\",\n  \"y_period\": \"1.5,3\",\n  \"order_num\": 2\n}, {\n  \"id\": 20,\n  \"kpi_stand_name\": \"文化弘扬与传承效益不明显，得0-1.5分\",\n  \"f_key\": \"\",\n  \"f_value\": \"0,1.5\",\n  \"short_name\": \"效益不明显\",\n  \"x_period\": \"\",\n  \"y_period\": \"0,1.5\",\n  \"order_num\": 3\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -491,7 +491,7 @@
   },
   "orderNum": 8,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\": 21,\n  \"kpi_stand_name\": \"文化与惠民效益明显，得3分\",\n  \"f_key\": \"\",\n  \"f_value\": \"3,3\",\n  \"short_name\": \"效益明显\",\n  \"x_period\": \"\",\n  \"y_period\": \"3,3\",\n  \"order_num\": 1\n}, {\n  \"id\": 22,\n  \"kpi_stand_name\": \"文化与惠民效益一般，得1.5-3分\",\n  \"f_key\": \"\",\n  \"f_value\": \"1.5,3\",\n  \"short_name\": \"效益一般\",\n  \"x_period\": \"\",\n  \"y_period\": \"1.5,3\",\n  \"order_num\": 2\n}, {\n  \"id\": 23,\n  \"kpi_stand_name\": \"文化与惠民效益不明显，得0-1.5分\",\n  \"f_key\": \"\",\n  \"f_value\": \"0,1.5\",\n  \"short_name\": \"效益不明显\",\n  \"x_period\": \"\",\n  \"y_period\": \"0,1.5\",\n  \"order_num\": 3\n}]",
   "remark": null,
   "dataStatus": "new"
 }, {
@@ -553,7 +553,7 @@
   },
   "orderNum": 9,
   "kpiWeight": "4",
-  "kpiStandard": "a",
+  "kpiStandard": "[{\n  \"id\": 24,\n  \"kpi_stand_name\": \"平台试运行进度按计划进行，得2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"2\",\n  \"short_name\": \"按计划\",\n  \"x_period\": \"\",\n  \"y_period\": \"2,2\",\n  \"order_num\": 1\n}, {\n  \"id\": 25,\n  \"kpi_stand_name\": \"平台试运行进度未按计划进行，得0-2分\",\n  \"f_key\": \"\",\n  \"f_value\": \"0,2\",\n  \"short_name\": \"未按计划\",\n  \"x_period\": \"\",\n  \"y_period\": \"0,2\",\n  \"order_num\": \"2\"\n}]",
   "remark": null,
   "dataStatus": "new"
 }]
