@@ -1,0 +1,41 @@
+[{
+  "id": 1,
+  "createBy": 101,
+  "createDate": "2018-11-12T02:31:18.019+0000",
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-11-29T07:05:53.401+0000",
+  "lastModifiedVersion": 4,
+  "period": "0,60",
+  "evalNum": 1,
+  "name": "低"
+}, {
+  "id": 2,
+  "createBy": 101,
+  "createDate": "2018-11-20T03:29:28.568+0000",
+  "lastModifiedBy": 101,
+  "lastModifiedDate": "2018-11-20T03:29:28.568+0000",
+  "lastModifiedVersion": 0,
+  "period": "60,70",
+  "evalNum": 2,
+  "name": "中"
+}, {
+  "id": 3,
+  "createBy": 101,
+  "createDate": "2018-11-20T03:29:28.621+0000",
+  "lastModifiedBy": 101,
+  "lastModifiedDate": "2018-11-20T03:29:28.621+0000",
+  "lastModifiedVersion": 0,
+  "period": "70,80",
+  "evalNum": 3,
+  "name": "中"
+}, {
+  "id": 4,
+  "createBy": 101,
+  "createDate": "2018-11-20T03:29:28.688+0000",
+  "lastModifiedBy": 101,
+  "lastModifiedDate": "2018-11-20T03:29:28.688+0000",
+  "lastModifiedVersion": 0,
+  "period": "80,100",
+  "evalNum": 4,
+  "name": "优"
+}]

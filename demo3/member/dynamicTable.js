@@ -2,14 +2,12 @@ var tdNum = 0;
 var expertInfoGlobal={};
 var projectInfoGlobal={};
 var kpiTableInfoGlobal={};
+var rankGlobal=[];
 var evalContent=[];
 var checkedArry=[];//存放选中单选按钮的id
 var scoreList=[];
-var rolename="groupmanager";//角色
 var levelNum;
 var kpiLevelName = ["一级指标","二级指标","三级指标","四级指标","五级指标","六级指标","七级指标","八级指标","九级指标","十级指标"];
-var is_leader=1;
-var user_info=[];
 var htmlTableBody = '<tr>';
 
 TablecommonFn = {
@@ -284,23 +282,73 @@ TablecommonFn = {
     },
 
     //查询专家评价情况
-    searchReview: function (scoreSumInfo){
-        expertInfoGlobal = scoreSumInfo; //评分总表
-        user_info = scoreSumInfo.total_member;
-        console.log(user_info);
-        $('#suggestR1').val(scoreSumInfo.suggestR1);
-        $('#suggestR2').val(scoreSumInfo.suggestR2);
-        $('#suggestR3').val(scoreSumInfo.suggestR3);
-        $('#moneyR1').val(scoreSumInfo.prj_reduce_amount);
-        $('#moneyR2').val(scoreSumInfo.prj_reduced_amount);
-        $('#moneyR3').val(scoreSumInfo.prj_yr_amount);
-        $('#moneyR4').val(scoreSumInfo.prj_yr_reduce_amount);
+    searchReview: function (){
+        var data = {
+            "evalObject.id":1,
+            "evalTask.id":1,
+            "evalExpert.id":1
+        };
+        $.ajax({
+            type: 'GET',
+            url: formUrl.evalScore,
+            dataType: 'json',
+            data:data,
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (scoreSumInfo) {
+                if(scoreSumInfo.message){
+                    $.messager.alert('错误', scoreSumInfo.message, 'error');
+                }else{
+                    expertInfoGlobal = scoreSumInfo; //评分总表
+                    //$('#suggestR1').val(scoreSumInfo.suggestR1);//目前还没有把建议的数据设计进来
+                    //$('#suggestR2').val(scoreSumInfo.suggestR2);
+                    //$('#suggestR3').val(scoreSumInfo.suggestR3);
+                    $('#moneyR1').val(scoreSumInfo.prjReduceAmount);
+                    $('#moneyR2').val(scoreSumInfo.prjReducedAmount);
+                    $('#moneyR3').val(scoreSumInfo.prjYrReduceAmount);
+                    $('#moneyR4').val(scoreSumInfo.prjYrAmount);
+                }
+            }
+        });
+    },
+
+    //查询设置的评级等级情况
+    searchRank: function (){
+        var data = {
+            "evalObject.id":1,
+            "evalTask.id":1,
+            "evalExpert.id":1,
+            "goalInfo.id":1
+        };
+        $.ajax({
+            type: 'GET',
+            url: formUrl.evalScore,
+            dataType: 'json',
+            data:data,
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (map) {
+                if(map.message){
+                    $.messager.alert('错误', map.message, 'error');
+                }else{
+                    rankGlobal = map; //评分总表
+                }
+            }
+        });
     },
 
     //生成合计行和评价等级行，使用评分总表对象expertInfoGlobal
     generateSumRow: function(data){
         htmlTableBody += '<tr><td class="cc" >合计</td><td class="cc" >100</td>';
-        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">' +expertInfoGlobal.total_score_describe + '</b></td>';
+        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">' +expertInfoGlobal.totalScoreDescribe + '</b></td>';
         htmlTableBody += '<td class="bb" colspan="2"><textarea id="scoreSum" name="scoreSum" class="easyui-validatebox member" required="true" ></textarea></td>';
         htmlTableBody += '</tr>';
 
@@ -308,16 +356,16 @@ TablecommonFn = {
         htmlTableBody += '<tr><td class="cc"><b>等级评价</b></td>';
         //动态拼接评价等级描述
         htmlTableBody += '<td class="cc" colspan="'+(levelNum+6) +'"><b>对项目进行评价等级：';
-        for(var i=0; i<expertInfoGlobal.eval_rank.length; i++){
-            var period = expertInfoGlobal.eval_rank[i].period.split(",");
+        for(var i=0; i<rankGlobal.length; i++){
+            var period = rankGlobal[i].period.split(",");
             var min = parseInt(period[0]);
             var max = parseInt(period[1]);
-            htmlTableBody += ''+ min +'-'+ max +'分为'+ expertInfoGlobal.eval_rank[i].name +'';
-            if(min != 0 && i == expertInfoGlobal.eval_rank.length-1){
+            htmlTableBody += ''+ min +'-'+ max +'分为'+ rankGlobal[i].name +'';
+            if(min != 0 && i == rankGlobal.length-1){
                 htmlTableBody += '。';
-            }else if(min == 0 && i == expertInfoGlobal.eval_rank.length-1){
+            }else if(min == 0 && i == rankGlobal.length-1){
                 htmlTableBody += '，建议不予立项。';
-            }else if(min == 0 && i != expertInfoGlobal.eval_rank.length-1){
+            }else if(min == 0 && i != rankGlobal.length-1){
                 htmlTableBody += '，建议不予立项，';
             }else{
                 htmlTableBody += '，';
@@ -383,7 +431,8 @@ TablecommonFn = {
 
 var getInfo = function(){
     TablecommonFn.searchProject();
-    //TablecommonFn.searchReview();
+    TablecommonFn.searchReview();
+    TablecommonFn.searchRank();
     TablecommonFn.initTable();
 };
 

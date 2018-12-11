@@ -1,0 +1,18 @@
+[{
+  "id": 1,
+  "createBy": 101,
+  "createDate": null,
+  "lastModifiedBy": 101,
+  "lastModifiedDate": null,
+  "lastModifiedVersion": 0,
+  "prjReduceAmount": 2000.0,
+  "prjReducedAmount": 1000.0,
+  "prjYrReduceAmount": 3000.0,
+  "prjYrAmount": "4000",
+  "rgYear": "2018",
+  "evalLevel": null,
+  "isLeader": 0,
+  "totalScoreDescribe": null,
+  "totalScore": "90",
+  "remark": "pcy test"
+}]
