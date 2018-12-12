@@ -55,7 +55,7 @@ TablecommonFn = {
                     for(var i = 0;i < kpiTableInfoGlobal.length ;i ++) {
                         evalContent.push(kpiTableInfoGlobal[i].kpi);   //每次都push一行
                         evalContent[i]["kpiStandard"] = JSON.parse(kpiTableInfoGlobal[i].kpiStandard);
-                        evalContent[i]["kpiWeight"] = kpiTableInfoGlobal[i].kpiWeight;
+                        evalContent[i]["kpiWeight"] = kpiTableInfoGlobal[i].kpiWeight; //会把kpi对象里的kpiWeight覆盖
                     }
                     console.log(evalContent);
                     //表格左侧json数据转换start
@@ -247,13 +247,18 @@ TablecommonFn = {
                         }else{
                             htmlTableBody += '<td class="bb"><textarea id="col005row' + kpiObjectFinal.id + '" class="easyui-validatebox grade" required="true" onchange="commonFn.checkGrade(value,this.id),commonFn.calScore()" disabled>' + kpiObjectFinal.score + '</textarea></td>';//专家评分
                         }
-                        htmlTableBody += '<td class="bb"><textarea id="col006row' + kpiObjectFinal.id + '" class="easyui-validatebox remark" disabled>' + kpiObjectFinal.remark + '</textarea></td>';//扣分原因
+                        htmlTableBody += '<td class="bb"><textarea id="col006row' + kpiObjectFinal.id + '" class="easyui-validatebox remark" disabled>';//扣分原因
+                        if(kpiObjectFinal.remark){
+                            htmlTableBody += kpiObjectFinal.remark + '</textarea></td>';
+                        }else{
+                            htmlTableBody +=  '</textarea></td>';
+                        }
                         htmlTableBody += '</tr>';
                     });
                     //渲染主体表格页面  end
-                    TablecommonFn.generateSumRow(evalContent);
-                    TablecommonFn.initVal(evalContent);
-                    TablecommonFn.cssStyleControl(evalContent);
+                    TablecommonFn.generateSumRow();
+                    TablecommonFn.initVal();
+                    TablecommonFn.cssStyleControl();
                 }
             }
         });
@@ -328,12 +333,11 @@ TablecommonFn = {
         var data = {
             "evalObject.id":1,
             "evalTask.id":1,
-            "evalExpert.id":1,
-            "goalInfo.id":1
+            "goalInfo.id":3
         };
         $.ajax({
             type: 'GET',
-            url: formUrl.evalScore,
+            url: formUrl.evalRank,
             dataType: 'json',
             data:data,
             contentType: "application/json; charset=utf-8",
@@ -353,9 +357,9 @@ TablecommonFn = {
     },
 
     //生成合计行和评价等级行，使用评分总表对象expertInfoGlobal
-    generateSumRow: function(data){
+    generateSumRow: function(){
         htmlTableBody += '<tr><td class="cc" >合计</td><td class="cc" >100</td>';
-        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">' +expertInfoGlobal.totalScoreDescribe + '</b></td>';
+        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">' +expertInfoGlobal[0].totalScoreDescribe + '</b></td>';
         htmlTableBody += '<td class="bb" colspan="2"><textarea id="scoreSum" name="scoreSum" class="easyui-validatebox member" required="true" ></textarea></td>';
         htmlTableBody += '</tr>';
 
@@ -384,10 +388,10 @@ TablecommonFn = {
     },
 
     //样式控制
-    cssStyleControl: function(data){
+    cssStyleControl: function(){
         var num=0;//计数器
-        for(var i=0; i<data.length; i++){
-            scoreList.push(data[i].kpi_score);
+        for(var i=0; i<evalContent.length; i++){
+            scoreList.push(evalContent[i].kpi_score);
         }
         //如果评分值都为0，则打开时为可编辑状态
         for(var i=0; i<scoreList.length; i++){
@@ -407,10 +411,10 @@ TablecommonFn = {
     },
 
     //该方法放在最后是由于需要等到页面dom元素全部渲染完，才能进行dom操作
-    initVal: function(data){
+    initVal: function(){
         //1. 评分标准列单选按钮赋checked值
-        for(var i=0; i<data.length; i ++){
-            checkedArry.push(data[i].check_stand_id);
+        for(var i=0; i<evalContent.length; i ++){
+            checkedArry.push(evalContent[i].check_stand_id);
         }
         for(var i=0; i<checkedArry.length; i++){
             if(checkedArry[i]){
@@ -418,17 +422,17 @@ TablecommonFn = {
             }
         }
         //2. 定量分值列赋值
-        for(var i=0; i<data.length; i ++){
-            if(data[i].value_type == "1" && checkedArry[i]){//value_type为1，定量分值列取eval_score_result
-                var standard = data[i].kpi_stand;
+        for(var i=0; i<evalContent.length; i ++){
+            if(evalContent[i].valueType == "1" && checkedArry[i]){//value_type为1，定量分值列取eval_score_result
+                var standard = evalContent[i].kpiStandard;
                 for(var j=0; j< standard.length; j++){
                     if(standard[j].id == checkedArry[i]){
-                        $('#col004row' + data[i].id).text(standard[j].short_name).attr("disabled",true);
+                        $('#col004row' + evalContent[i].id).text(standard[j].short_name).attr("disabled",true);
                     }
                 }
             }
-            if(data[i].value_type == "2" && checkedArry[i]){//value_type为2，定量分值列取eval_quantity
-                $('#col004row' + data[i].id).css("width","60%").text(data[i].eval_quantity );
+            if(evalContent[i].valueType == "2" && checkedArry[i]){//value_type为2，定量分值列取eval_quantity
+                $('#col004row' + evalContent[i].id).css("width","60%").text(evalContent[i].eval_quantity );
             }
         }
         //3.合计行和评价等级行赋值

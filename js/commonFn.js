@@ -121,7 +121,7 @@ var commonFn = {
                 maxQuantity = parseFloat(xPeriod[1]);
                 minY =  parseFloat(yPeriod[0]);
                 maxY =  parseFloat(yPeriod[1]);
-                unit = evalContent[i].kpi_unit;
+                unit = evalContent[i].kpiUnit;
             }
         }
         var k = (maxY - minY)/(maxQuantity - minQuantity);//公示斜率
@@ -144,9 +144,7 @@ var commonFn = {
             $('#' + id).val('');
             $('#col005row' + kpiId).val('');
             $.messager.alert('信息', "定量分值不能超过最大值：" + maxQuantity + unit, 'info');
-
         }
-
     },
     /**
      * 对定性指标-校验分数
@@ -159,8 +157,8 @@ var commonFn = {
         var kpiId = idStr.split("row")[1];
         var val = $('input[name="'+ kpiId +'"]:checked').val();
         for(var i=0; i<evalContent.length; i++){
-            if(evalContent[i].id == kpiId && evalContent[i].value_type == "1"){
-                var yPeriod = evalContent[i].kpi_stand[val].y_period.split(",");
+            if(evalContent[i].id == kpiId && evalContent[i].valueType == "1"){
+                var yPeriod = evalContent[i].kpiStandard[val].y_period.split(",");
                 minValue = parseFloat(yPeriod[0]);
                 maxValue = parseFloat(yPeriod[1]);
             }
@@ -191,8 +189,9 @@ var commonFn = {
                 }
             }
         });
-        $("#scoreSum").val(score.toFixed(1));
-
+        if(score != 0){
+            $("#scoreSum").val(score.toFixed(1));
+        }
         for(var i=0; i<rankGlobal.length; i++){
             var period = rankGlobal[i].period.split(",");
             var min = parseInt(period[0]);
