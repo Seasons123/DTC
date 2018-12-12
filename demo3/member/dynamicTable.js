@@ -54,6 +54,8 @@ TablecommonFn = {
                     kpiTableInfoGlobal = tableInfo.sort(commonFn.sortByPro('orderNum'));
                     for(var i = 0;i < kpiTableInfoGlobal.length ;i ++) {
                         evalContent.push(kpiTableInfoGlobal[i].kpi);   //每次都push一行
+                        evalContent[i]["kpiStandard"] = JSON.parse(kpiTableInfoGlobal[i].kpiStandard);
+                        evalContent[i]["kpiWeight"] = kpiTableInfoGlobal[i].kpiWeight;
                     }
                     console.log(evalContent);
                     //表格左侧json数据转换start
@@ -129,11 +131,11 @@ TablecommonFn = {
                             level: evalContent[i].kpiLevel,
                             name: evalContent[i].kpiName,
                             rows: 1,
-                            weight: kpiTableInfoGlobal[i].kpiWeight,
+                            weight: evalContent[i].kpiWeight,
                             explain: evalContent[i].kpiExplain,
                             score: evalContent[i].kpiScore,
                             remark: evalContent[i].kpiRemark,
-                            standard: JSON.parse(kpiTableInfoGlobal[i].kpiStandard),
+                            standard: evalContent[i].kpiStandard,
                             type: evalContent[i].valueType,
                             unit: evalContent[i].kpiUnit,
                             defaultScore: ""
@@ -154,11 +156,11 @@ TablecommonFn = {
                     }
                     console.log(data);
 
-                    //遍历indicatorArry，向data中塞值
+                    //遍历indicatorArray，向data中塞值
                     for(var i = 0; i< indicatorArray.length; i ++){
                         var num = indicatorArray[i].level;
                         var tdIndicatorName = "t" + num;
-                        //var tdtdIndicatorweight = "t" + (2 * num);
+                        //var tdIndicatorWeight = "t" + (2 * num);
                         var tdIndicatorNameTrCount = "td" + num + "trCount";
                         var temp = window[tdIndicatorNameTrCount];
                         for(var j = 0; j < indicatorArray[i].rows ; j ++){
@@ -234,7 +236,12 @@ TablecommonFn = {
                         // 渲染剩余两列（非填评分值部分） end
 
                         //生成评分值部分，每一个单元格以id形式打标记信息，标记值包含横纵的信息（末级指标名称+末级评分名称）
-                        htmlTableBody += '<td class="bb"><textarea id="col004row' + kpiObjectFinal.id + '" class="easyui-validatebox quantify" required="true" onchange="commonFn.checkQuantity(value,this.id)" disabled></textarea><span>' + kpiObjectFinal.unit +'</span></td>';//评价结果
+                        htmlTableBody += '<td class="bb"><textarea id="col004row' + kpiObjectFinal.id + '" class="easyui-validatebox quantify" required="true" onchange="commonFn.checkQuantity(value,this.id)" disabled></textarea><span>';//评价结果
+                        if(kpiObjectFinal.unit){
+                            htmlTableBody += kpiObjectFinal.unit +'</span></td>';
+                        }else{
+                            htmlTableBody += '</span></td>';
+                        }
                         if(kpiObjectFinal.score == 0 || kpiObjectFinal.score == null){
                             htmlTableBody += '<td class="bb"><textarea id="col005row' + kpiObjectFinal.id + '" class="easyui-validatebox grade" required="true" onchange="commonFn.checkGrade(value,this.id),commonFn.calScore()"></textarea></td>';//专家评分
                         }else{

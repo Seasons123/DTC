@@ -77,20 +77,20 @@ var commonFn = {
         $("input[name='"+ id +"'][value="+value+"]").attr("checked",true);
         for(var i=0; i<evalContent.length; i++){
             if(evalContent[i].id == id ) {
-                if(evalContent[i].value_type == "1"){
-                    $('#col004row' + id).val(evalContent[i].kpi_stand[value].short_name);
+                if(evalContent[i].valueType == "1"){
+                    $('#col004row' + id).val(evalContent[i].kpiStandard[value].short_name);
                 }
-                if(evalContent[i].value_type == "2"){
+                if(evalContent[i].valueType == "2"){
                     $('#col004row' + id).val('');
                 }
-                var yPeriod = evalContent[i].kpi_stand[value].y_period.split(",");
-                if (yPeriod[0] == yPeriod[1] && evalContent[i].kpi_stand[value].order_num == 1) {
+                var yPeriod = evalContent[i].kpiStandard[value].y_period.split(",");
+                if (yPeriod[0] == yPeriod[1] && evalContent[i].kpiStandard[value].order_num == 1) {
                     $('#col005row' + evalContent[i].id).val(parseFloat(yPeriod[0])).attr("disabled", true).css("background-color", "#D1EEEE");
                     $('#col006row' + evalContent[i].id).val('').attr("disabled", true).css("background-color", "#D1EEEE");
-                } else if(yPeriod[0] == yPeriod[1] && evalContent[i].kpi_stand[value].order_num == evalContent[i].kpi_stand.length){
+                } else if(yPeriod[0] == yPeriod[1] && evalContent[i].kpiStandard[value].order_num == evalContent[i].kpiStandard.length){
                     $('#col005row' + evalContent[i].id).val(parseFloat(yPeriod[0])).attr("disabled", true).css("background-color", "#D1EEEE");
                     $('#col006row' + evalContent[i].id).val('').removeAttr("disabled").css("background-color", "#FFFFFF");
-                }else if(evalContent[i].value_type == "2"){
+                }else if(evalContent[i].valueType == "2"){
                     $('#col005row' + evalContent[i].id).val('').attr("disabled", true).css("background-color", "#D1EEEE");
                     $('#col006row' + evalContent[i].id).val('').removeAttr("disabled").css("background-color", "#FFFFFF");
                 }else{
@@ -114,9 +114,9 @@ var commonFn = {
         var kpiId = idStr.split("row")[1];
         var val = $('input[name="'+ kpiId +'"]:checked').val();
         for(var i=0; i<evalContent.length; i++){
-            if(evalContent[i].id == kpiId && evalContent[i].value_type == "2"){
-                var xPeriod = evalContent[i].kpi_stand[val].x_period.split(",");
-                var yPeriod = evalContent[i].kpi_stand[val].y_period.split(",");
+            if(evalContent[i].id == kpiId && evalContent[i].valueType == "2"){
+                var xPeriod = evalContent[i].kpiStandard[val].x_period.split(",");
+                var yPeriod = evalContent[i].kpiStandard[val].y_period.split(",");
                 minQuantity = parseFloat(xPeriod[0]);
                 maxQuantity = parseFloat(xPeriod[1]);
                 minY =  parseFloat(yPeriod[0]);
@@ -495,13 +495,13 @@ var commonFn = {
         $('#review_table textarea').removeAttr("disabled");
         $('.standard').removeAttr("disabled");
         for(var i=0; i<evalContent.length; i++){
-            if( evalContent[i].value_type == "1"){
+            if( evalContent[i].valueType == "1"){
                 $('#col004row' + evalContent[i].id).attr("disabled",true).css("background-color", "#D1EEEE");
             }
-            if( evalContent[i].value_type == "2"){
+            if( evalContent[i].valueType == "2"){
                 $('#col005row' + evalContent[i].id).attr("disabled",true).css("background-color", "#D1EEEE");
             }
-            var standard = evalContent[i].kpi_stand;
+            var standard = evalContent[i].kpiStandard;
             for(var j=0; j< standard.length; j++){
                 if(standard[j].id == checkedArry[i]){
                     var yPeriod = standard[j].y_period.split(",");
