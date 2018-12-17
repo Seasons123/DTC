@@ -294,7 +294,7 @@ var commonFn = {
             score["id"] = id;
             score["kpi_score"] = $('#col005row' + id).val();
             score["kpi_remark"] = $('#col006row' + id).val();
-            if(evalContent[index].value_type == "1" ){ //定性指标
+            if(evalContent[index].valueType == "1" ){ //定性指标
                 score["eval_score_result"] = $('#col004row' + id).val();
                 score["eval_quantity"] = 0;
             }else{
