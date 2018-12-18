@@ -7,7 +7,7 @@ switch (sever){
             "taskKpi": '../../data/taskKpi/TaskKpi.json',
             "evalScore": '../../data/taskKpi/EvalScore.json',
             "evalRank": '../../data/taskKpi/EvalRank.json',
-            "evalScoreDetail": '../../data/taskKpi/EvalScoreDetail.json'
+            "evalScoreDetail": '../../data/taskKpi/scoreDetail.json'
         };
         break ;
     case  "1":
