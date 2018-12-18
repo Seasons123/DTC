@@ -1,10 +1,11 @@
 var tdNum = 0;
-var expertInfoGlobal={};
+var evalScoreInfoGlobal={}; //EvalScore表中信息，下侧的打分汇总数据
+var evalScoreDetailInfoInfoGlobal={};
 var projectInfoGlobal={};
 var kpiTableInfoGlobal={};
 var rankGlobal=[];
 var evalContent=[];
-var checkedArry=[];//存放选中单选按钮的id
+var checkedArray=[];//存放选中单选按钮的id
 var scoreList=[];
 var levelNum;
 var kpiLevelName = ["一级指标","二级指标","三级指标","四级指标","五级指标","六级指标","七级指标","八级指标","九级指标","十级指标"];
@@ -133,12 +134,15 @@ TablecommonFn = {
                             rows: 1,
                             weight: evalContent[i].kpiWeight,
                             explain: evalContent[i].kpiExplain,
-                            score: evalContent[i].kpiScore,
-                            remark: evalContent[i].kpiRemark,
+                            score: evalScoreDetailInfoInfoGlobal[i].kpiScore,
+                            remark: evalScoreDetailInfoInfoGlobal[i].remark,
                             standard: evalContent[i].kpiStandard,
                             type: evalContent[i].valueType,
                             unit: evalContent[i].kpiUnit,
-                            defaultScore: ""
+                            defaultScore: "",//组长字段使用
+                            checkStandId: evalScoreDetailInfoInfoGlobal[i].checkStandId,
+                            evalQuantity: evalScoreDetailInfoInfoGlobal[i].evalQuantity,
+                            evalScoreResult: evalScoreDetailInfoInfoGlobal[i].evalScoreResult
                         };
                         indicatorArray.push(indicatorObject);
                     }
@@ -154,7 +158,6 @@ TablecommonFn = {
                         }
                         data.push(row);   //每次都push一行
                     }
-                    console.log(data);
 
                     //遍历indicatorArray，向data中塞值
                     for(var i = 0; i< indicatorArray.length; i ++){
@@ -178,7 +181,10 @@ TablecommonFn = {
                                         standard: indicatorArray[i].standard,
                                         type: indicatorArray[i].type,
                                         unit: indicatorArray[i].unit,
-                                        defaultScore: indicatorArray[i].defaultScore
+                                        defaultScore: indicatorArray[i].defaultScore,//组长字段使用
+                                        checkStandId: indicatorArray[i].checkStandId,
+                                        evalQuantity: indicatorArray[i].evalQuantity,
+                                        evalScoreResult: indicatorArray[i].evalScoreResult
                                     };
                                     window[tdIndicatorNameTrCount] ++ ;
                                     temp = window[tdIndicatorNameTrCount];
@@ -293,9 +299,9 @@ TablecommonFn = {
         });
     },
 
-    //查询专家评价情况
-    searchReview: function (){
-        var data = {
+    //查询专家评价情况，评分汇总
+    searchEvalScore: function (){
+        var data = { //这些数据是在页面打开时能获取到的参数
             "evalObject.id":1,
             "evalTask.id":1,
             "evalExpert.id":1
@@ -315,7 +321,7 @@ TablecommonFn = {
                 if(scoreSumInfo.message){
                     $.messager.alert('错误', scoreSumInfo.message, 'error');
                 }else{
-                    expertInfoGlobal = scoreSumInfo; //评分总表
+                    evalScoreInfoGlobal = scoreSumInfo; //评分总表
                     //$('#suggestR1').val(scoreSumInfo.suggestR1);//目前还没有把建议的数据设计进来
                     //$('#suggestR2').val(scoreSumInfo.suggestR2);
                     //$('#suggestR3').val(scoreSumInfo.suggestR3);
@@ -323,6 +329,33 @@ TablecommonFn = {
                     $('#moneyR2').val(scoreSumInfo[0].prjReducedAmount);
                     $('#moneyR3').val(scoreSumInfo[0].prjYrReduceAmount);
                     $('#moneyR4').val(scoreSumInfo[0].prjYrAmount);
+                }
+            }
+        });
+    },
+
+    //查询右侧评分明细
+    searchEvalScoreDetail: function(){
+        var data = {
+            "evalScore.id":1 //其它的参数evalObject.id、evalTask.id、evalExpert.id，都能在pe_eval_score表中取到
+        };
+        $.ajax({
+            type: 'GET',
+            url: formUrl.evalScoreDetail,
+            dataType: 'json',
+            data:data,
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (scoreDetailInfo) {
+                if(scoreDetailInfo.message){
+                    $.messager.alert('错误', scoreDetailInfo.message, 'error');
+                }else{
+                    evalScoreDetailInfoInfoGlobal = scoreDetailInfo.sort(commonFn.sortByPro('orderNum')); //评分总表
+                    console.log(evalScoreDetailInfoInfoGlobal);
                 }
             }
         });
@@ -356,10 +389,10 @@ TablecommonFn = {
         });
     },
 
-    //生成合计行和评价等级行，使用评分总表对象expertInfoGlobal
+    //生成合计行和评价等级行，使用评分总表对象evalScoreInfoGlobal
     generateSumRow: function(){
         htmlTableBody += '<tr><td class="cc" >合计</td><td class="cc" >100</td>';
-        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">' +expertInfoGlobal[0].totalScoreDescribe + '</b></td>';
+        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">' +evalScoreInfoGlobal[0].totalScoreDescribe + '</b></td>';
         htmlTableBody += '<td class="bb" colspan="2"><textarea id="scoreSum" name="scoreSum" class="easyui-validatebox member" required="true" ></textarea></td>';
         htmlTableBody += '</tr>';
 
@@ -413,26 +446,26 @@ TablecommonFn = {
     //该方法放在最后是由于需要等到页面dom元素全部渲染完，才能进行dom操作
     initVal: function(){
         //1. 评分标准列单选按钮赋checked值
-        for(var i=0; i<evalContent.length; i ++){
-            checkedArry.push(evalContent[i].check_stand_id);
+        for(var i=0; i<evalScoreDetailInfoInfoGlobal.length; i ++){
+            checkedArray.push(evalScoreDetailInfoInfoGlobal[i].checkStandId);
         }
-        for(var i=0; i<checkedArry.length; i++){
-            if(checkedArry[i]){
-                $('#'+ checkedArry[i]).attr("checked",true);
+        for(var i=0; i<checkedArray.length; i++){
+            if(checkedArray[i]){
+                $('#'+ checkedArray[i]).attr("checked",true);
             }
         }
         //2. 定量分值列赋值
         for(var i=0; i<evalContent.length; i ++){
-            if(evalContent[i].valueType == "1" && checkedArry[i]){//value_type为1，定量分值列取eval_score_result
+            if(evalContent[i].valueType == "1" && checkedArray[i]){//value_type为1，定量分值列取eval_score_result
                 var standard = evalContent[i].kpiStandard;
                 for(var j=0; j< standard.length; j++){
-                    if(standard[j].id == checkedArry[i]){
+                    if(standard[j].id == checkedArray[i]){
                         $('#col004row' + evalContent[i].id).text(standard[j].short_name).attr("disabled",true);
                     }
                 }
             }
-            if(evalContent[i].valueType == "2" && checkedArry[i]){//value_type为2，定量分值列取eval_quantity
-                $('#col004row' + evalContent[i].id).css("width","60%").text(evalContent[i].eval_quantity );
+            if(evalContent[i].valueType == "2" && checkedArray[i]){//value_type为2，定量分值列取eval_quantity
+                $('#col004row' + evalContent[i].id).css("width","60%").text(evalScoreDetailInfoInfoGlobal[i].evalQuantity );
             }
         }
         //3.合计行和评价等级行赋值
@@ -441,8 +474,9 @@ TablecommonFn = {
 };
 
 var getInfo = function(){
+    TablecommonFn.searchEvalScore();
+    TablecommonFn.searchEvalScoreDetail();
     TablecommonFn.searchProject();
-    TablecommonFn.searchReview();
     TablecommonFn.searchRank();
     TablecommonFn.initTable();
 };

@@ -57,7 +57,6 @@ var commonFn = {
                 count++;
             });
         }
-        ;
         return count;
     },
     refresh: function () {
@@ -68,7 +67,6 @@ var commonFn = {
         itmId = null;
         filePathTag = "";
         $('#tabs').tabs('select', '绩效目标');
-
     },
     /**
      * 评分标准赋选中的单选值
@@ -307,7 +305,7 @@ var commonFn = {
         console.log(evalContentSave);
 
         var evalScoreInfoSave = {
-            "id": expertInfoGlobal.id,
+            "id": evalScoreInfoGlobal.id,
             "eval_obj_id": projectInfoGlobal.chr_id,
             "eval_user_id": kpiTableInfoGlobal.eval_user_id,
             "eval_user_name": kpiTableInfoGlobal.eval_user_name,
@@ -502,7 +500,7 @@ var commonFn = {
             }
             var standard = evalContent[i].kpiStandard;
             for(var j=0; j< standard.length; j++){
-                if(standard[j].id == checkedArry[i]){
+                if(standard[j].id == checkedArray[i]){
                     var yPeriod = standard[j].y_period.split(",");
                     if(yPeriod[0] == yPeriod[1] && standard[j].order_num==1){
                         $('#col005row' + evalContent[i].id).attr("disabled",true).css("background-color", "#D1EEEE");
