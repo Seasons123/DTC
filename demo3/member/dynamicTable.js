@@ -134,15 +134,15 @@ TablecommonFn = {
                             rows: 1,
                             weight: evalContent[i].kpiWeight,
                             explain: evalContent[i].kpiExplain,
-                            score: evalScoreDetailInfoInfoGlobal[i].kpiScore,
-                            remark: evalScoreDetailInfoInfoGlobal[i].remark,
+                            score: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].kpiScore: '',
+                            remark: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].remark:'',
                             standard: evalContent[i].kpiStandard,
                             type: evalContent[i].valueType,
                             unit: evalContent[i].kpiUnit,
                             defaultScore: "",//组长字段使用
-                            checkStandId: evalScoreDetailInfoInfoGlobal[i].checkStandId,
-                            evalQuantity: evalScoreDetailInfoInfoGlobal[i].evalQuantity,
-                            evalScoreResult: evalScoreDetailInfoInfoGlobal[i].evalScoreResult
+                            checkStandId: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].checkStandId:'',
+                            evalQuantity: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].evalQuantity:'',
+                            evalScoreResult: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].evalScoreResult:''
                         };
                         indicatorArray.push(indicatorObject);
                     }
