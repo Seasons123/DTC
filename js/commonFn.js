@@ -282,28 +282,65 @@ var commonFn = {
             }
         },*/
     /**
-     * 提交评分信息
+     * 保存右侧打分明细
      */
-    submitReview : function(){
+    saveEvalScoreDetail: function(){
         var evalContentSave = [];
         $.each(evalContent, function(index, item){
             var id = evalContent[index].id;
             var score = {};
-            score["id"] = id;
-            score["kpi_score"] = $('#col005row' + id).val();
-            score["kpi_remark"] = $('#col006row' + id).val();
+            score["evalScore.id"] = 1;
+            score["expert.id"] = 1;
+            score["kpi.id"] = id;
+           /* score["createBy"] = 1000;
+            score["createDate"] = "2019-12-06T10:55:27.083+0000";
+            score["lastModifiedBy"] = 1000;
+            score["lastModifiedDate"] = "2019-12-06T10:55:27.083+0000";
+            score["lastModifiedVersion"] = 0;*/
+            score["isLeader"] = 0;
+            score["kpiScore"] = $('#col005row' + id).val();
+            score["remark"] = $('#col006row' + id).val();
             if(evalContent[index].valueType == "1" ){ //定性指标
-                score["eval_score_result"] = $('#col004row' + id).val();
-                score["eval_quantity"] = 0;
+                score["evalScoreResult"] = $('#col004row' + id).val();
+                score["evalQuantity"] = 0;
             }else{
-                score["eval_score_result"] = "";
-                score["eval_quantity"] = $('#col004row' + id).val();
+                score["evalScoreResult"] = "";
+                score["evalQuantity"] = $('#col004row' + id).val();
             }
-            score["check_stand_id"] = $("input[name='"+ id +"']:checked").attr("id");//获取单选按钮的id
+            score["checkStandId"] = $("input[name='"+ id +"']:checked").attr("id");//获取单选按钮的id
+            score["orderNum"] = index + 1;
             evalContentSave.push(score);
         });
         console.log(evalContentSave);
-
+        $.ajax({
+            type: 'POST',
+            url: formUrl.evalScoreDetail,
+            dataType: 'json',
+            data:JSON.stringify(evalContentSave),
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (scoreSumInfo) {
+                if(scoreSumInfo.message){
+                    $.messager.alert('警告', '此状态已审核，不能修改', 'warning');
+                }else{
+                    //commonFn.refresh();
+                    $('#editBtn').linkbutton('disable');
+                    $('#confirmBtn').linkbutton('disable');
+                    commonFn.setReadonly();
+                    commonFn.setEditCellColor(false);
+                    $.messager.alert('信息', '提交成功', 'info');
+                }
+            }
+        });
+    },
+    /**
+     * 保存下测打分汇总数据
+     */
+    saveEvalScore: function(){
         var evalScoreInfoSave = {
             "id": evalScoreInfoGlobal.id,
             "eval_obj_id": projectInfoGlobal.chr_id,
@@ -322,38 +359,13 @@ var commonFn = {
             "eval_user_name": kpiTableInfoGlobal.eval_user_name,
             "eval_content": evalContentSave
         };
-
         var data = {
             "eval_score_info":evalScoreInfoSave,
             "project_info":projectInfoGlobal,
             "kpi_score_detail_info":kpiScoreDetailInfoSave
         };
-        console.log(JSON.stringify(data));
-        $.ajax({
-            type: 'POST',
-            url: formUrl.saveExpertScore,
-            dataType: 'json',
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (map) {
-                if(map.status == '0'){
-                    /*commonFn.refresh();*/
-                    /*$('#status').val('已提交');*/
-                    $('#editBtn').linkbutton('disable');
-                    $('#confirmBtn').linkbutton('disable');
-                    commonFn.setReadonly();
-                    commonFn.setEditCellColor(false);
-                    $.messager.alert('信息', '提交成功', 'info');
-                }else{
-                    /*ip.ipInfoJump(map.error_msg, 'error');*/
-                    $.messager.alert('警告', '此状态已审核，不能修改', 'warning');
-                }
-            }, error: function () {
-                ip.ipInfoJump(map.error_msg, 'error');
-            }
-        });
     },
+
     /**
      * 保存专家评价信息 ------ 暂无此需求
      */
@@ -682,5 +694,12 @@ var commonFn = {
             document.getElementById("totalPrice").disabled = true;
             /!*document.getElementById("comAdvice").style.backgroundColor = "#D1EEEE";*!/*/
         }
+    },
+    /**
+     * 提交评分信息
+     */
+    submitReview: function(){
+        commonFn.saveEvalScoreDetail();
+        //commonFn.saveEvalScore();
     }
 };

@@ -337,7 +337,8 @@ TablecommonFn = {
     //查询右侧评分明细
     searchEvalScoreDetail: function(){
         var data = {
-            "evalScore.id":1 //其它的参数evalObject.id、evalTask.id、evalExpert.id，都能在pe_eval_score表中取到
+            "evalScore.id":1, //其它的参数evalObject.id、evalTask.id、evalExpert.id，都能在pe_eval_score表中取到
+            "expert.id":1,
         };
         $.ajax({
             type: 'GET',
