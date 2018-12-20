@@ -286,23 +286,37 @@ var commonFn = {
      */
     saveEvalScoreDetail: function(){
         var evalContentSave = [];
+        var id;
         $.each(evalContent, function(index, item){
-            var id = evalContent[index].id;
             var score = {};
-            score["evalScore.id"] = 1;
-            score["expert.id"] = 1;
-            score["kpi.id"] = id;
+            var kpiId = evalContent[index].id;
+            if(evalScoreDetailInfoInfoGlobal[index]){
+                score["id"] = evalScoreDetailInfoInfoGlobal[index].id;
+                score["lastModifiedVersion"] = evalScoreDetailInfoInfoGlobal[index].lastModifiedVersion;
+            }
+            score["evalScore"] = {
+                "id":1,
+                "lastModifiedVersion":0
+            };
+            score["expert"] = {
+                "id":1,
+                "lastModifiedVersion":0
+            };
+            score["kpi"] = {
+                "id":kpiId,
+                "lastModifiedVersion":0
+            };
             score["isLeader"] = 0;
-            score["kpiScore"] = $('#col005row' + id).val();
-            score["remark"] = $('#col006row' + id).val();
+            score["kpiScore"] = $('#col005row' + kpiId).val();
+            score["remark"] = $('#col006row' + kpiId).val();
             if(evalContent[index].valueType == "1" ){ //定性指标
-                score["evalScoreResult"] = $('#col004row' + id).val();
+                score["evalScoreResult"] = $('#col004row' + kpiId).val();
                 score["evalQuantity"] = 0;
             }else{
                 score["evalScoreResult"] = "";
-                score["evalQuantity"] = $('#col004row' + id).val();
+                score["evalQuantity"] = $('#col004row' + kpiId).val();
             }
-            score["checkStandId"] = $("input[name='"+ id +"']:checked").attr("id");//获取单选按钮的id
+            score["checkStandId"] = $("input[name='"+ kpiId +"']:checked").attr("id");//获取单选按钮的id
             score["orderNum"] = index + 1;
             evalContentSave.push(score);
         });
