@@ -19,4 +19,13 @@ switch (sever){
             "evalScoreDetail": 'http://10.15.1.34:8081/df-pe/api/EvalScoreDetail?',
         };
         break;
+    case  "2":
+        formUrl = {
+            "projectMain": 'http://127.0.0.1:8202/df-peeval/api/ProjectMain?',
+            "taskKpi": 'http://127.0.0.1:8202/df-peeval/api/TaskKpi?',
+            "evalScore": 'http://127.0.0.1:8202/df-peeval/api/EvalScore?',
+            "evalRank": 'http://127.0.0.1:8202/df-peeval/api/EvalRank?',
+            "evalScoreDetail": 'http://127.0.0.1:8202/df-peeval/api/EvalScoreDetail?',
+        };
+        break;
 }

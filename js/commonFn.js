@@ -362,17 +362,31 @@ var commonFn = {
             "total_score": $('#scoreSum').val(),
             "eval_level":$('#evalRank').val()
         };
-        var kpiScoreDetailInfoSave={
-            "kpi_table_id": kpiTableInfoGlobal.kpi_table_id,
-            "eval_user_id": kpiTableInfoGlobal.eval_user_id,
-            "eval_user_name": kpiTableInfoGlobal.eval_user_name,
-            "eval_content": evalContentSave
-        };
-        var data = {
-            "eval_score_info":evalScoreInfoSave,
-            "project_info":projectInfoGlobal,
-            "kpi_score_detail_info":kpiScoreDetailInfoSave
-        };
+        console.log(evalScoreInfoSave);
+        $.ajax({
+            type: 'POST',
+            url: formUrl.evalScore,
+            dataType: 'json',
+            data:JSON.stringify(evalScoreInfoSave),
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (scoreSumInfo) {
+                if(scoreSumInfo.message){
+                    $.messager.alert('警告', '此状态已审核，不能修改', 'warning');
+                }else{
+                    //commonFn.refresh();
+                    $('#editBtn').linkbutton('disable');
+                    $('#confirmBtn').linkbutton('disable');
+                    commonFn.setReadonly();
+                    commonFn.setEditCellColor(false);
+                    $.messager.alert('信息', '提交成功', 'info');
+                }
+            }
+        });
     },
 
     /**
@@ -709,6 +723,6 @@ var commonFn = {
      */
     submitReview: function(){
         commonFn.saveEvalScoreDetail();
-        //commonFn.saveEvalScore();
+        commonFn.saveEvalScore();
     }
 };
