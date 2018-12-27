@@ -290,7 +290,7 @@ TablecommonFn = {
         });
     },
 
-    //查询某次任务的所有打分专家，只有组长角色有用
+    //查询某次任务的所有打分专家，只有组长角色(isLeader == 1)有用
     searchUserInfo: function (){
         var data = {
             "evalTask.id":1,
@@ -315,9 +315,47 @@ TablecommonFn = {
                         if(taskExpertData[i].expert.id != expertId){
                             var item ={
                                 "id": taskExpertData[i].expert.id,
-                                "name": taskExpertData[i].expert.expertName
+                                "name": taskExpertData[i].expert.expertName,
+                                "totalScore":0,
+                                "evalLevel":""
                             };
                             user_info.push(item);
+                        }
+                    }
+                }
+            }
+        });
+        TablecommonFn.searchMemberScoreTotal();
+    },
+
+    //查询所有组员的评分总分和评价等级，只有组长角色(isLeader == 1)有用
+    searchMemberScoreTotal: function(){
+        var data = {
+            "evalTask.id":1,
+            "evalObject.id":1,
+            "fetchProperties":"*,expert[id,expertName]"
+        };
+        $.ajax({
+            type: 'GET',
+            url: formUrl.evalScore,
+            dataType: 'json',
+            data:data,
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (evalScoreData) {
+                if(evalScoreData.message){
+                    $.messager.alert('错误', evalScoreData.message, 'error');
+                }else{
+                    for(var i in user_info){
+                        for(var j in evalScoreData) {
+                            if (evalScoreData[j].expert.id != user_info[i].id) {
+                                user_info[i].totalScore = evalScoreData[j].totalScore;
+                                user_info[i].evalLevel = evalScoreData[j].evalLevel;
+                            }
                         }
                     }
                 }
@@ -536,7 +574,6 @@ TablecommonFn = {
 var getInfo = function(){
     TablecommonFn.searchUserInfo();
     TablecommonFn.searchEvalScore();
-    TablecommonFn.searchEvalScoreDetail();
     TablecommonFn.searchProject();
     TablecommonFn.searchRank();
     TablecommonFn.initTable();
