@@ -10,10 +10,10 @@ var scoreList=[];
 var levelNum;
 var kpiLevelName = ["一级指标","二级指标","三级指标","四级指标","五级指标","六级指标","七级指标","八级指标","九级指标","十级指标"];
 var htmlTableBody = '<tr>';
-var expertId=3; //专家id，页面打开时自动带过来的参数值
+var expertId=3; //专家id，页面打开时自动带过来的参数值{1:李老师;2:赵老师;3:贺老师}
 var taskId=1;
 var objectId=1;
-var isLeader=0; //组长角色，页面打开时自动带过来的参数值
+var isLeader=0; //组员角色，页面打开时自动带过来的参数值
 
 TablecommonFn = {
 

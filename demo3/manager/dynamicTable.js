@@ -11,7 +11,7 @@ var levelNum;
 var kpiLevelName = ["一级指标","二级指标","三级指标","四级指标","五级指标","六级指标","七级指标","八级指标","九级指标","十级指标"];
 var htmlTableBody = '<tr>';
 var user_info=[];
-var expertId=2; //专家id
+var expertId=4; //专家id {4:刘老师}
 var isLeader=1; //组长角色
 var taskId=1;
 var objectId=1;
