@@ -1,6 +1,6 @@
 var tdNum = 0;
 var evalScoreInfoGlobal={}; //EvalScore表中信息，下侧的打分汇总数据
-var evalScoreDetailInfoInfoGlobal={};
+var evalScoreDetailInfoGlobal={};
 var projectInfoGlobal={};
 var kpiTableInfoGlobal={};
 var rankGlobal=[];
@@ -10,6 +10,10 @@ var scoreList=[];
 var levelNum;
 var kpiLevelName = ["一级指标","二级指标","三级指标","四级指标","五级指标","六级指标","七级指标","八级指标","九级指标","十级指标"];
 var htmlTableBody = '<tr>';
+var expertId=3; //专家id，页面打开时自动带过来的参数值
+var taskId=1;
+var objectId=1;
+var isLeader=0; //组长角色，页面打开时自动带过来的参数值
 
 TablecommonFn = {
 
@@ -31,7 +35,7 @@ TablecommonFn = {
     //不确定共有几级指标，表格左侧内容动态生成+获取分值显示
     initTable: function () {
         var data = {
-            "evalObject.id":1,
+            "evalObject.id":objectId,
             "dataStatus":"new",
             "fetchProperties":"*,kpi[*,parent[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi1[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi2[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi3[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi4[id,kpiName,kpiWeight,kpiLevel,kpiExplain]]",
             "sort":"orderNum,asc"
@@ -134,15 +138,15 @@ TablecommonFn = {
                             rows: 1,
                             weight: evalContent[i].kpiWeight,
                             explain: evalContent[i].kpiExplain,
-                            score: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].kpiScore: '',
-                            remark: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].remark:'',
+                            score: evalScoreDetailInfoGlobal[i]?evalScoreDetailInfoGlobal[i].kpiScore: '',
+                            remark: evalScoreDetailInfoGlobal[i]?evalScoreDetailInfoGlobal[i].remark:'',
                             standard: evalContent[i].kpiStandard,
                             type: evalContent[i].valueType,
                             unit: evalContent[i].kpiUnit,
                             defaultScore: "",//组长字段使用
-                            checkStandId: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].checkStandId:'',
-                            evalQuantity: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].evalQuantity:'',
-                            evalScoreResult: evalScoreDetailInfoInfoGlobal[i]?evalScoreDetailInfoInfoGlobal[i].evalScoreResult:''
+                            checkStandId: evalScoreDetailInfoGlobal[i]?evalScoreDetailInfoGlobal[i].checkStandId:'',
+                            evalQuantity: evalScoreDetailInfoGlobal[i]?evalScoreDetailInfoGlobal[i].evalQuantity:'',
+                            evalScoreResult: evalScoreDetailInfoGlobal[i]?evalScoreDetailInfoGlobal[i].evalScoreResult:''
                         };
                         indicatorArray.push(indicatorObject);
                     }
@@ -273,7 +277,7 @@ TablecommonFn = {
     //查询项目信息
     searchProject: function (){
         var data = {
-            "evalObject.id":1
+            "evalObject.id":objectId
         };
         $.ajax({
             type: 'GET',
@@ -302,9 +306,10 @@ TablecommonFn = {
     //查询专家评价情况，评分汇总
     searchEvalScore: function (){
         var data = { //这些数据是在页面打开时能获取到的参数
-            "evalObject.id":1,
-            "evalTask.id":1,
-            "evalExpert.id":1
+            "object.id":objectId,
+            "evalTask.id":taskId,
+            "expert.id":expertId,
+            "fetchProperties":"*,expert[id,expertName],task[id,setYear]"
         };
         $.ajax({
             type: 'GET',
@@ -322,13 +327,16 @@ TablecommonFn = {
                     $.messager.alert('错误', scoreSumInfo.message, 'error');
                 }else{
                     evalScoreInfoGlobal = scoreSumInfo; //评分总表
-                    //$('#suggestR1').val(scoreSumInfo.suggestR1);//目前还没有把建议的数据设计进来
-                    //$('#suggestR2').val(scoreSumInfo.suggestR2);
-                    //$('#suggestR3').val(scoreSumInfo.suggestR3);
-                    $('#moneyR1').val(scoreSumInfo[0].prjReduceAmount);
-                    $('#moneyR2').val(scoreSumInfo[0].prjReducedAmount);
-                    $('#moneyR3').val(scoreSumInfo[0].prjYrReduceAmount);
-                    $('#moneyR4').val(scoreSumInfo[0].prjYrAmount);
+                    if(evalScoreInfoGlobal.length){
+                        //$('#suggestR1').val(scoreSumInfo.suggestR1);//目前还没有把建议的数据设计进来
+                        //$('#suggestR2').val(scoreSumInfo.suggestR2);
+                        //$('#suggestR3').val(scoreSumInfo.suggestR3);
+                        $('#moneyR1').val(scoreSumInfo[0].prjReduceAmount);
+                        $('#moneyR2').val(scoreSumInfo[0].prjReducedAmount);
+                        $('#moneyR3').val(scoreSumInfo[0].prjYrReduceAmount);
+                        $('#moneyR4').val(scoreSumInfo[0].prjYrAmount);
+                        TablecommonFn.searchEvalScoreDetail();
+                    }
                 }
             }
         });
@@ -336,15 +344,15 @@ TablecommonFn = {
 
     //查询右侧评分明细
     searchEvalScoreDetail: function(){
-        // var data = {
-        //     "evalScore.id":1, //其它的参数evalObject.id、evalTask.id、evalExpert.id，都能在pe_eval_score表中取到
-        //     "expert.id":1,
-        // };
+        var data = {
+            "evalScore.id":evalScoreInfoGlobal[0].id, //其它的参数evalObject.id、evalTask.id、evalExpert.id，都能在pe_eval_score表中取到
+            "expert.id":expertId,
+        };
         $.ajax({
             type: 'GET',
             url: formUrl.evalScoreDetail,
             dataType: 'json',
-            //data:data,
+            data:data,
             contentType: "application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true
@@ -355,8 +363,8 @@ TablecommonFn = {
                 if(scoreDetailInfo.message){
                     $.messager.alert('错误', scoreDetailInfo.message, 'error');
                 }else{
-                    evalScoreDetailInfoInfoGlobal = scoreDetailInfo.sort(commonFn.sortByPro('orderNum')); //评分总表
-                    console.log(evalScoreDetailInfoInfoGlobal);
+                    evalScoreDetailInfoGlobal = scoreDetailInfo.sort(commonFn.sortByPro('orderNum')); //评分总表
+                    console.log(evalScoreDetailInfoGlobal);
                 }
             }
         });
@@ -393,7 +401,7 @@ TablecommonFn = {
     //生成合计行和评价等级行，使用评分总表对象evalScoreInfoGlobal
     generateSumRow: function(){
         htmlTableBody += '<tr><td class="cc" >合计</td><td class="cc" >100</td>';
-        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">' +evalScoreInfoGlobal[0].totalScoreDescribe + '</b></td>';
+        htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">如本表格评分后，总分（合计）未达到'+ rankGlobal[0].period.split(",")[1] +'分，下表留空为零，不作评分。</b></td>';
         htmlTableBody += '<td class="bb" colspan="2"><textarea id="scoreSum" name="scoreSum" class="easyui-validatebox member" required="true" ></textarea></td>';
         htmlTableBody += '</tr>';
 
@@ -447,8 +455,8 @@ TablecommonFn = {
     //该方法放在最后是由于需要等到页面dom元素全部渲染完，才能进行dom操作
     initVal: function(){
         //1. 评分标准列单选按钮赋checked值
-        for(var i=0; i<evalScoreDetailInfoInfoGlobal.length; i ++){
-            checkedArray.push(evalScoreDetailInfoInfoGlobal[i].checkStandId);
+        for(var i=0; i<evalScoreDetailInfoGlobal.length; i ++){
+            checkedArray.push(evalScoreDetailInfoGlobal[i].checkStandId);
         }
         for(var i=0; i<checkedArray.length; i++){
             if(checkedArray[i]){
@@ -466,7 +474,7 @@ TablecommonFn = {
                 }
             }
             if(evalContent[i].valueType == "2" && checkedArray[i]){//value_type为2，定量分值列取eval_quantity
-                $('#col004row' + evalContent[i].id).css("width","60%").text(evalScoreDetailInfoInfoGlobal[i].evalQuantity );
+                $('#col004row' + evalContent[i].id).css("width","60%").text(evalScoreDetailInfoGlobal[i].evalQuantity );
             }
         }
         //3.合计行和评价等级行赋值
@@ -476,7 +484,6 @@ TablecommonFn = {
 
 var getInfo = function(){
     TablecommonFn.searchEvalScore();
-    TablecommonFn.searchEvalScoreDetail();
     TablecommonFn.searchProject();
     TablecommonFn.searchRank();
     TablecommonFn.initTable();

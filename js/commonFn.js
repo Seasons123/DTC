@@ -4,9 +4,7 @@ var batchNo;
 var enId;
 var itmId;
 var filePathTag = ""; // 定义绩效目标的路径
-
 var grid;
-var expertId;
 /* 公共函数类  class commonFn */
 var commonFn = {
     /*行排序*/
@@ -182,7 +180,7 @@ var commonFn = {
         var obj = $(".grade");
         $.each(obj, function (i) {
             if (i != obj.length - 1) {
-                if (parseInt(this.value)) {
+                if (parseFloat(this.value)) {
                     score = parseFloat(score) + parseFloat(this.value);
                 }
             }
@@ -282,24 +280,24 @@ var commonFn = {
             }
         },*/
     /**
-     * 保存右侧打分明细
+     * 提交评分信息
+     * 第一步：保存右侧打分明细
      */
-    saveEvalScoreDetail: function(){
+    submitReview: function(){
         var evalContentSave = [];
-        var id;
         $.each(evalContent, function(index, item){
             var score = {};
             var kpiId = evalContent[index].id;
-            if(evalScoreDetailInfoInfoGlobal[index]){
-                score["id"] = evalScoreDetailInfoInfoGlobal[index].id;
-                score["lastModifiedVersion"] = evalScoreDetailInfoInfoGlobal[index].lastModifiedVersion;
+            if(evalScoreDetailInfoGlobal[index]){
+                score["id"] = evalScoreDetailInfoGlobal[index].id;
+                score["lastModifiedVersion"] = evalScoreDetailInfoGlobal[index].lastModifiedVersion;
             }
             score["evalScore"] = {
-                "id":1,
+                "id":evalScoreInfoGlobal[0].id,
                 "lastModifiedVersion":0
             };
             score["expert"] = {
-                "id":1,
+                "id":expertId,
                 "lastModifiedVersion":0
             };
             score["kpi"] = {
@@ -341,27 +339,40 @@ var commonFn = {
                     $('#confirmBtn').linkbutton('disable');
                     commonFn.setReadonly();
                     commonFn.setEditCellColor(false);
-                    $.messager.alert('信息', '提交成功', 'info');
+                    commonFn.saveEvalScore(); //第二步：保存下测打分汇总数据
                 }
             }
         });
     },
     /**
      * 保存下测打分汇总数据
+     * 如果是某个专家对某个任务第一次进行打分，需要在eval_score表中生成一条记录
      */
     saveEvalScore: function(){
         var evalScoreInfoSave = {
-            "id": evalScoreInfoGlobal.id,
-            "eval_obj_id": projectInfoGlobal.chr_id,
-            "eval_user_id": kpiTableInfoGlobal.eval_user_id,
-            "eval_user_name": kpiTableInfoGlobal.eval_user_name,
-            "prj_reduce_amount":$('#moneyR1').val(),
-            "prj_reduced_amount": $('#moneyR2').val(),
-            "prj_yr_amount": $('#moneyR3').val(),
-            "prj_yr_reduce_amount": $('#moneyR4').val(),
-            "total_score": $('#scoreSum').val(),
-            "eval_level":$('#evalRank').val()
+            "prjReduceAmount":$('#moneyR1').val(),
+            "prjReducedAmount": $('#moneyR2').val(),
+            "prjYrReduceAmount": $('#moneyR3').val(),
+            "prjYrAmount": $('#moneyR4').val(),
+            "totalScore": $('#scoreSum').val(),
+            "evalLevel":$('#evalRank').val(),
+            "expert":{
+                "id":expertId,
+                "lastModifiedVersion":0
+            },
+            "evalTask":{
+                "id":taskId,
+                "lastModifiedVersion":0
+            },
+            "evalObject":{
+                "id":objectId,
+                "lastModifiedVersion":0
+            }
         };
+        if(evalScoreInfoGlobal.length){
+            evalScoreInfoSave["id"] = evalScoreInfoGlobal[0].id;
+            evalScoreInfoSave["lastModifiedVersion"] = evalScoreInfoGlobal[0].lastModifiedVersion;
+        }
         console.log(evalScoreInfoSave);
         $.ajax({
             type: 'POST',
@@ -559,7 +570,7 @@ var commonFn = {
         $('#reviewRemark').val("");
         $('#createName').val("");
         $('#verifyName').val("");
-        clearSelect();
+        //clearSelect();
         $('textarea').removeClass('validatebox-invalid');
 
         //清空绩效目标审核打分表数据
@@ -717,12 +728,5 @@ var commonFn = {
             document.getElementById("totalPrice").disabled = true;
             /!*document.getElementById("comAdvice").style.backgroundColor = "#D1EEEE";*!/*/
         }
-    },
-    /**
-     * 提交评分信息
-     */
-    submitReview: function(){
-        commonFn.saveEvalScoreDetail();
-        commonFn.saveEvalScore();
     }
 };
