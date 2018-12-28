@@ -279,76 +279,13 @@ var commonFn = {
                     , 'json');
             }
         },*/
+
     /**
      * 提交评分信息
-     * 第一步：保存右侧打分明细
-     */
-    submitReview: function(){
-        var evalContentSave = [];
-        $.each(evalContent, function(index, item){
-            var score = {};
-            var kpiId = evalContent[index].id;
-            if(evalScoreDetailInfoGlobal[index]){
-                score["id"] = evalScoreDetailInfoGlobal[index].id;
-                score["lastModifiedVersion"] = evalScoreDetailInfoGlobal[index].lastModifiedVersion;
-            }
-            score["evalScore"] = {
-                "id":evalScoreInfoGlobal[0].id,
-                "lastModifiedVersion":0
-            };
-            score["expert"] = {
-                "id":expertId,
-                "lastModifiedVersion":0
-            };
-            score["kpi"] = {
-                "id":kpiId,
-                "lastModifiedVersion":0
-            };
-            score["isLeader"] = 0;
-            score["kpiScore"] = $('#col005row' + kpiId).val();
-            score["remark"] = $('#col006row' + kpiId).val();
-            if(evalContent[index].valueType == "1" ){ //定性指标
-                score["evalScoreResult"] = $('#col004row' + kpiId).val();
-                score["evalQuantity"] = 0;
-            }else{
-                score["evalScoreResult"] = "";
-                score["evalQuantity"] = $('#col004row' + kpiId).val();
-            }
-            score["checkStandId"] = $("input[name='"+ kpiId +"']:checked").attr("id");//获取单选按钮的id
-            score["orderNum"] = index + 1;
-            evalContentSave.push(score);
-        });
-        console.log(evalContentSave);
-        $.ajax({
-            type: 'POST',
-            url: formUrl.evalScoreDetail,
-            dataType: 'json',
-            data:JSON.stringify(evalContentSave),
-            contentType: "application/json; charset=utf-8",
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
-            async: false,
-            success: function (scoreSumInfo) {
-                if(scoreSumInfo.message){
-                    $.messager.alert('警告', '此状态已审核，不能修改', 'warning');
-                }else{
-                    //commonFn.refresh();
-                    $('#editBtn').linkbutton('disable');
-                    $('#confirmBtn').linkbutton('disable');
-                    commonFn.setReadonly();
-                    commonFn.setEditCellColor(false);
-                    commonFn.saveEvalScore(); //第二步：保存下测打分汇总数据
-                }
-            }
-        });
-    },
-    /**
-     * 保存下测打分汇总数据
+     * 第一步：保存下测打分汇总数据
      * 如果是某个专家对某个任务第一次进行打分，需要在eval_score表中生成一条记录
      */
-    saveEvalScore: function(){
+    submitReview : function(){
         var evalScoreInfoSave = {
             "prjReduceAmount":$('#moneyR1').val(),
             "prjReducedAmount": $('#moneyR2').val(),
@@ -379,6 +316,74 @@ var commonFn = {
             url: formUrl.evalScore,
             dataType: 'json',
             data:JSON.stringify(evalScoreInfoSave),
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (scoreSumInfo) {
+                if(scoreSumInfo.message){
+                    $.messager.alert('警告', '此状态已审核，不能修改', 'warning');
+                }else{
+                    if(evalScoreInfoGlobal.length==0){
+                        evalScoreInfoGlobal.push(scoreSumInfo); //评分总表,主要用于初次评分赋值,返回的scoreSumInfo是json对象
+                    }
+                    //commonFn.refresh();
+                    $('#editBtn').linkbutton('disable');
+                    $('#confirmBtn').linkbutton('disable');
+                    commonFn.setReadonly();
+                    commonFn.setEditCellColor(false);
+                    commonFn.saveEvalScoreDetail(); //第二步：保存右侧打分明细
+                }
+            }
+        });
+    },
+
+    /**
+     * 第二步：保存右侧打分明细
+     */
+    saveEvalScoreDetail: function(){
+        var evalContentSave = [];
+        $.each(evalContent, function(index, item){
+            var score = {};
+            var kpiId = evalContent[index].id;
+            if(evalScoreDetailInfoGlobal[index]){
+                score["id"] = evalScoreDetailInfoGlobal[index].id;
+                score["lastModifiedVersion"] = evalScoreDetailInfoGlobal[index].lastModifiedVersion;
+            }
+            score["evalScore"] = {
+                "id":evalScoreInfoGlobal[0].id,
+                "lastModifiedVersion":0
+            };
+            score["expert"] = {
+                "id":expertId,
+                "lastModifiedVersion":0
+            };
+            score["kpi"] = {
+                "id":kpiId,
+                "lastModifiedVersion":0
+            };
+            score["isLeader"] = isLeader;
+            score["kpiScore"] = $('#col005row' + kpiId).val();
+            score["remark"] = $('#col006row' + kpiId).val();
+            if(evalContent[index].valueType == "1" ){ //定性指标
+                score["evalScoreResult"] = $('#col004row' + kpiId).val();
+                score["evalQuantity"] = 0;
+            }else{
+                score["evalScoreResult"] = "";
+                score["evalQuantity"] = $('#col004row' + kpiId).val();
+            }
+            score["checkStandId"] = $("input[name='"+ kpiId +"']:checked").attr("id");//获取单选按钮的id
+            score["orderNum"] = index + 1;
+            evalContentSave.push(score);
+        });
+        console.log(evalContentSave);
+        $.ajax({
+            type: 'POST',
+            url: formUrl.evalScoreDetail,
+            dataType: 'json',
+            data:JSON.stringify(evalContentSave),
             contentType: "application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true

@@ -1,5 +1,5 @@
 var tdNum = 0;
-var evalScoreInfoGlobal={}; //EvalScore表中信息，下侧的打分汇总数据
+var evalScoreInfoGlobal=[]; //EvalScore表中信息，下侧的打分汇总数据
 var evalScoreDetailInfoGlobal={};
 var projectInfoGlobal={};
 var kpiTableInfoGlobal={};
