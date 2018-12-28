@@ -15,7 +15,7 @@ var taskId=1;
 var objectId=1;
 var isLeader=0; //组员角色，页面打开时自动带过来的参数值
 
-TablecommonFn = {
+tableCommonFn = {
 
     initTableHeader: function () {
         //总共的列数为：指标级次数levelNum+5
@@ -67,7 +67,7 @@ TablecommonFn = {
                     var data = [];
                     var trNum =evalContent.length;
                     levelNum = parseInt(evalContent[0].kpiLevel); //一共有几级指标
-                    TablecommonFn.initTableHeader(levelNum);
+                    tableCommonFn.initTableHeader(levelNum);
                     tdNum = levelNum ;
                     var indicatorArray = [];
                     var indicatorObject = {};
@@ -266,9 +266,9 @@ TablecommonFn = {
                         htmlTableBody += '</tr>';
                     });
                     //渲染主体表格页面  end
-                    TablecommonFn.generateSumRow();
-                    TablecommonFn.initVal();
-                    TablecommonFn.cssStyleControl();
+                    tableCommonFn.generateSumRow();
+                    tableCommonFn.initVal();
+                    tableCommonFn.cssStyleControl();
                 }
             }
         });
@@ -335,7 +335,7 @@ TablecommonFn = {
                         $('#moneyR2').val(scoreSumInfo[0].prjReducedAmount);
                         $('#moneyR3').val(scoreSumInfo[0].prjYrReduceAmount);
                         $('#moneyR4').val(scoreSumInfo[0].prjYrAmount);
-                        TablecommonFn.searchEvalScoreDetail();
+                        tableCommonFn.searchEvalScoreDetail();
                     }
                 }
             }
@@ -483,10 +483,10 @@ TablecommonFn = {
 };
 
 var getInfo = function(){
-    TablecommonFn.searchEvalScore();
-    TablecommonFn.searchProject();
-    TablecommonFn.searchRank();
-    TablecommonFn.initTable();
+    tableCommonFn.searchEvalScore();
+    tableCommonFn.searchProject();
+    tableCommonFn.searchRank();
+    tableCommonFn.initTable();
 };
 
 getInfo();

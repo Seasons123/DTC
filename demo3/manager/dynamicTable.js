@@ -18,7 +18,7 @@ var objectId=1;
 var memberScoreDetail=[]; //组员打分明细
 
 
-TablecommonFn = {
+tableCommonFn = {
 
     initTableHeader: function () {
         //总共的列数为：指标级次数levelNum+5
@@ -76,7 +76,7 @@ TablecommonFn = {
                     var data = [];
                     var trNum =evalContent.length;
                     levelNum = parseInt(evalContent[0].kpiLevel); //一共有几级指标
-                    TablecommonFn.initTableHeader(levelNum);
+                    tableCommonFn.initTableHeader(levelNum);
                     //完善表头,如果是组长，追加组员的表头
                     if( isLeader == 1 ){
                         $('#managerTH').css("display","");
@@ -282,9 +282,9 @@ TablecommonFn = {
                         htmlTableBody += '</tr>';
                     });
                     //渲染主体表格页面  end
-                    TablecommonFn.generateSumRow();
-                    TablecommonFn.initVal();
-                    TablecommonFn.cssStyleControl();
+                    tableCommonFn.generateSumRow();
+                    tableCommonFn.initVal();
+                    tableCommonFn.cssStyleControl();
                 }
             }
         });
@@ -325,7 +325,7 @@ TablecommonFn = {
                 }
             }
         });
-        TablecommonFn.searchMemberScoreTotal();
+        tableCommonFn.searchMemberScoreTotal();
     },
 
     //查询所有组员的评分总分和评价等级，只有组长角色(isLeader == 1)有用
@@ -363,6 +363,34 @@ TablecommonFn = {
         });
         console.log(user_info);
     },
+
+    //待做？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+    //查询某次任务的所有打分专家，只有组长角色(isLeader == 1)有用
+    /*searchMemberScoreDetail: function () {
+        var data = {
+
+        };
+        $.ajax({
+            type: 'GET',
+            url: formUrl.evalScoreDetail,
+            dataType: 'json',
+            data:data,
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (scoreDetailInfo) {
+                if(scoreDetailInfo.message){
+                    $.messager.alert('错误', scoreDetailInfo.message, 'error');
+                }else{
+
+                }
+            }
+        });
+    },*/
+    //待做？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
 
     //查询项目信息
     searchProject: function (){
@@ -424,7 +452,7 @@ TablecommonFn = {
                         $('#moneyR2').val(scoreSumInfo[0].prjReducedAmount);
                         $('#moneyR3').val(scoreSumInfo[0].prjYrReduceAmount);
                         $('#moneyR4').val(scoreSumInfo[0].prjYrAmount);
-                        TablecommonFn.searchEvalScoreDetail();
+                        tableCommonFn.searchEvalScoreDetail();
                     }
                 }
             }
@@ -572,11 +600,12 @@ TablecommonFn = {
 };
 
 var getInfo = function(){
-    TablecommonFn.searchUserInfo();
-    TablecommonFn.searchEvalScore();
-    TablecommonFn.searchProject();
-    TablecommonFn.searchRank();
-    TablecommonFn.initTable();
+    tableCommonFn.searchUserInfo();
+    tableCommonFn.searchEvalScore(); //查询时先查评分总表，再查评分明细表
+    //tableCommonFn.searchMemberScoreDetail();//待做？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+    tableCommonFn.searchProject();
+    tableCommonFn.searchRank();
+    tableCommonFn.initTable();
 };
 
 getInfo();
