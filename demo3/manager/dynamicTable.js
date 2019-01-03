@@ -279,8 +279,16 @@ tableCommonFn = {
                         }else{
                             htmlTableBody +=  '</textarea></td>';
                         }
+
+                        //生成评分值部分，每一个单元格以id形式打标记信息，标记值包含横纵的信息（末级指标名称+末级评分名称）
+                        //只有组长角色(isLeader == 1)有用
+                        for (var i = 0; i < user_info.length; i++) {
+                            htmlTableBody += '<td class="bb"><textarea id="row' + kpiObjectFinal.id  + 'col' + user_info[i].name + '" class="easyui-validatebox memberGrade" required="true"></textarea></td>';
+                        }
+
                         htmlTableBody += '</tr>';
                     });
+
                     //渲染主体表格页面  end
                     tableCommonFn.generateSumRow();
                     tableCommonFn.initVal();
@@ -392,7 +400,14 @@ tableCommonFn = {
                 if(expertsScoreDetails.message){
                     $.messager.alert('错误', expertsScoreDetails.message, 'error');
                 }else{
-                    expertsScoreDetailsGlobal = expertsScoreDetails;
+                    var expertsScoreDetailsGlobal = {};
+                    for(var i=0; i<expertsScoreDetails.length; i++){
+                        if(!expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id]){
+                            expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id] = [];
+                        }
+                        expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id].push(expertsScoreDetails[i]);
+                    }
+                    console.log(expertsScoreDetailsGlobal);
 
                 }
             }
@@ -527,6 +542,10 @@ tableCommonFn = {
         htmlTableBody += '<tr><td class="cc" >合计</td><td class="cc" >100</td>';
         htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">如本表格评分后，总分（合计）未达到'+ rankGlobal[0].period.split(",")[1] +'分，下表留空为零，不作评分。</b></td>';
         htmlTableBody += '<td class="bb" colspan="2"><textarea id="scoreSum" name="scoreSum" class="easyui-validatebox member" required="true" ></textarea></td>';
+        //显示组员的合计分
+        for( var i = 0; i<user_info.length ; i++){
+            htmlTableBody += '<td class="bb member" id="col'+ user_info[i].name +'rowScoreSum">' + parseFloat(user_info[i].totalScore).toFixed(1) +'</td>';
+        }
         htmlTableBody += '</tr>';
 
         //评价等级行
@@ -549,6 +568,21 @@ tableCommonFn = {
             }
         }
         htmlTableBody += '<td class="bb" colspan="2"><textarea id="evalRank" name="evalRank" class="easyui-validatebox member" required="true" ></textarea></td>';
+        //显示三个组员的评价等级
+        for( var i = 0; i<user_info.length ; i++){
+            var id =user_info[i].id;
+            var memberScoreSum = user_info[i].totalScore;
+            var memberEvalRank = "";
+            for(var j=0; j<rankGlobal.length; j++){
+                var period = rankGlobal[j].period.split(",");
+                var min = parseInt(period[0]);
+                var max = parseInt(period[1]);
+                if(memberScoreSum>min && memberScoreSum<max){
+                    memberEvalRank = rankGlobal[j].name ;
+                }
+            }
+            htmlTableBody += '<td class="bb member" id="col'+ id +'rowEvalRank">'+ memberEvalRank +'</td>';
+        }
         htmlTableBody += '</tr>';
         $('#tableBody').append(htmlTableBody);
     },
