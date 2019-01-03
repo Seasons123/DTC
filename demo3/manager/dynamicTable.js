@@ -15,7 +15,7 @@ var expertId=4; //专家id {4:刘老师}
 var isLeader=1; //组长角色
 var taskId=1;
 var objectId=1;
-var memberScoreDetail=[]; //组员打分明细
+var expertsScoreDetailsGlobal; //组员打分明细
 
 
 tableCommonFn = {
@@ -364,15 +364,22 @@ tableCommonFn = {
         console.log(user_info);
     },
 
-    //待做？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
     //查询某次任务的所有打分专家，只有组长角色(isLeader == 1)有用
-    /*searchMemberScoreDetail: function () {
+    searchExpertsScoreDetails: function () {
+        var expertIdArray = [];
+        for(i in user_info){
+            expertIdArray.push(user_info[i].id);
+        }
+        var expertIds = expertIdArray.toString();
         var data = {
-
+            "taskId":taskId,
+            "expertIds":expertIds,
+            "fetchProperties":"*,expert[id,expertName],kpi[id]",
+            "sort":"orderNum,asc"
         };
         $.ajax({
             type: 'GET',
-            url: formUrl.evalScoreDetail,
+            url: formUrl.expertsScoreDetails,
             dataType: 'json',
             data:data,
             contentType: "application/json; charset=utf-8",
@@ -381,16 +388,16 @@ tableCommonFn = {
             },
             crossDomain: true,
             async: false,
-            success: function (scoreDetailInfo) {
-                if(scoreDetailInfo.message){
-                    $.messager.alert('错误', scoreDetailInfo.message, 'error');
+            success: function (expertsScoreDetails) {
+                if(expertsScoreDetails.message){
+                    $.messager.alert('错误', expertsScoreDetails.message, 'error');
                 }else{
+                    expertsScoreDetailsGlobal = expertsScoreDetails;
 
                 }
             }
         });
-    },*/
-    //待做？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+    },
 
     //查询项目信息
     searchProject: function (){
@@ -602,7 +609,7 @@ tableCommonFn = {
 var getInfo = function(){
     tableCommonFn.searchUserInfo();
     tableCommonFn.searchEvalScore(); //查询时先查评分总表，再查评分明细表
-    //tableCommonFn.searchMemberScoreDetail();//待做？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+    tableCommonFn.searchExpertsScoreDetails();
     tableCommonFn.searchProject();
     tableCommonFn.searchRank();
     tableCommonFn.initTable();

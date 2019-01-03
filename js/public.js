@@ -8,7 +8,8 @@ switch (sever){
             "evalScore": '../../data/taskKpi/EvalScore.json',
             "evalRank": '../../data/taskKpi/EvalRank.json',
             "evalScoreDetail": '../../data/taskKpi/ScoreDetail.json',
-            "evalTaskExpert": '../../data/taskExpert/TaskExpert.json'
+            "evalTaskExpert": '../../data/taskExpert/TaskExpert.json',
+            "expertsScoreDetails": '../../data/expertsScoreDetails/ExpertsScoreDetails.json'
         };
         break ;
     case  "1":
@@ -18,7 +19,8 @@ switch (sever){
             "evalScore": 'http://10.15.1.34:8081/df-pe/api/EvalScore?',
             "evalRank": 'http://10.15.1.34:8081/df-pe/api/EvalRank?',
             "evalScoreDetail": 'http://10.15.1.34:8081/df-pe/api/EvalScoreDetail?',
-            "evalTaskExpert": 'http://10.15.1.34:8081/df-pe/api/TaskExpert?'
+            "evalTaskExpert": 'http://10.15.1.34:8081/df-pe/api/TaskExpert?',
+            "expertsScoreDetails": 'http://10.15.1.34:8081/df-pe/api/EvalScoreDetail/getExpertsScoreDetails?'
         };
         break;
     case  "2":
@@ -28,7 +30,8 @@ switch (sever){
             "evalScore": 'http://127.0.0.1:8202/df-peeval/api/EvalScore?',
             "evalRank": 'http://127.0.0.1:8202/df-peeval/api/EvalRank?',
             "evalScoreDetail": 'http://127.0.0.1:8202/df-peeval/api/EvalScoreDetail?',
-            "evalTaskExpert": 'http://10.15.1.34:8081/df-pe/api/TaskExpert?'
+            "evalTaskExpert": 'http://10.15.1.34:8081/df-pe/api/TaskExpert?',
+            "expertsScoreDetails": 'http://10.15.1.34:8081/df-pe/api/EvalScoreDetail/getExpertsScoreDetails?'
         };
         break;
 }

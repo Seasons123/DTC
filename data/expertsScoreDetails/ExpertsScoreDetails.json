@@ -1,0 +1,568 @@
+[{
+  "id": 73,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.923+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 22
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.1,
+  "evalScoreResult": "未按计划",
+  "orderNum": 1,
+  "checkStandId": "2",
+  "remark": "zhao"
+}, {
+  "id": 74,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.926+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 26
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.2,
+  "evalScoreResult": "未按计划",
+  "orderNum": 2,
+  "checkStandId": "4",
+  "remark": "zhao"
+}, {
+  "id": 75,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.930+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 28
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.0,
+  "evalScoreResult": "不健全",
+  "orderNum": 3,
+  "checkStandId": "7",
+  "remark": "zhao"
+}, {
+  "id": 76,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.933+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 32
+  },
+  "evalQuantity": "6",
+  "kpiScore": 1.8,
+  "evalScoreResult": null,
+  "orderNum": 4,
+  "checkStandId": "9",
+  "remark": "zhao"
+}, {
+  "id": 77,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.936+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 36
+  },
+  "evalQuantity": null,
+  "kpiScore": 0.0,
+  "evalScoreResult": null,
+  "orderNum": 5,
+  "checkStandId": null,
+  "remark": "zhao"
+}, {
+  "id": 78,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.940+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 39
+  },
+  "evalQuantity": "0.9",
+  "kpiScore": 0.95,
+  "evalScoreResult": null,
+  "orderNum": 6,
+  "checkStandId": "16",
+  "remark": "zhao"
+}, {
+  "id": 79,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.944+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 41
+  },
+  "evalQuantity": "0",
+  "kpiScore": 2.0,
+  "evalScoreResult": "效益一般",
+  "orderNum": 7,
+  "checkStandId": "19",
+  "remark": "zhao"
+}, {
+  "id": 80,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.947+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 43
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.2,
+  "evalScoreResult": "效益不明显",
+  "orderNum": 8,
+  "checkStandId": "23",
+  "remark": "zhao"
+}, {
+  "id": 81,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-27T05:39:08.951+0000",
+  "lastModifiedVersion": 9,
+  "expert": {
+    "id": 2,
+    "expertName": "赵老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 50
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.1,
+  "evalScoreResult": "未按计划",
+  "orderNum": 9,
+  "checkStandId": "25",
+  "remark": "zhao"
+}, {
+  "id": 55,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.110+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 22
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.0,
+  "evalScoreResult": "未按计划",
+  "orderNum": 1,
+  "checkStandId": "2",
+  "remark": "li"
+}, {
+  "id": 56,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.113+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 26
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.0,
+  "evalScoreResult": "未按计划",
+  "orderNum": 2,
+  "checkStandId": "4",
+  "remark": "li"
+}, {
+  "id": 57,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.116+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 28
+  },
+  "evalQuantity": "0",
+  "kpiScore": 2.0,
+  "evalScoreResult": "健全",
+  "orderNum": 3,
+  "checkStandId": "5",
+  "remark": "li"
+}, {
+  "id": 58,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.120+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 32
+  },
+  "evalQuantity": "22",
+  "kpiScore": 3.0,
+  "evalScoreResult": null,
+  "orderNum": 4,
+  "checkStandId": "8",
+  "remark": "li"
+}, {
+  "id": 59,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.123+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 36
+  },
+  "evalQuantity": "777",
+  "kpiScore": 2.885,
+  "evalScoreResult": null,
+  "orderNum": 5,
+  "checkStandId": "12",
+  "remark": "li"
+}, {
+  "id": 60,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.127+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 39
+  },
+  "evalQuantity": "4",
+  "kpiScore": 3.0,
+  "evalScoreResult": null,
+  "orderNum": 6,
+  "checkStandId": "14",
+  "remark": "li"
+}, {
+  "id": 61,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.130+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 41
+  },
+  "evalQuantity": "0",
+  "kpiScore": 3.0,
+  "evalScoreResult": "效益明显",
+  "orderNum": 7,
+  "checkStandId": "18",
+  "remark": "li"
+}, {
+  "id": 62,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.133+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 43
+  },
+  "evalQuantity": "0",
+  "kpiScore": 3.0,
+  "evalScoreResult": "效益明显",
+  "orderNum": 8,
+  "checkStandId": "21",
+  "remark": "li"
+}, {
+  "id": 63,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-26T07:22:27.137+0000",
+  "lastModifiedVersion": 8,
+  "expert": {
+    "id": 1,
+    "expertName": "李老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 50
+  },
+  "evalQuantity": "0",
+  "kpiScore": 2.0,
+  "evalScoreResult": "按计划",
+  "orderNum": 9,
+  "checkStandId": "24",
+  "remark": "li"
+}, {
+  "id": 136,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:25.995+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 22
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.1,
+  "evalScoreResult": "未按计划",
+  "orderNum": 1,
+  "checkStandId": "2",
+  "remark": "he"
+}, {
+  "id": 137,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:25.998+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 26
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.1,
+  "evalScoreResult": "未按计划",
+  "orderNum": 2,
+  "checkStandId": "4",
+  "remark": "he"
+}, {
+  "id": 138,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:26.001+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 28
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.1,
+  "evalScoreResult": "基本健全",
+  "orderNum": 3,
+  "checkStandId": "6",
+  "remark": "he"
+}, {
+  "id": 139,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:26.005+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 32
+  },
+  "evalQuantity": "2",
+  "kpiScore": 0.6,
+  "evalScoreResult": null,
+  "orderNum": 4,
+  "checkStandId": "10",
+  "remark": "he"
+}, {
+  "id": 140,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:26.008+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 36
+  },
+  "evalQuantity": "600",
+  "kpiScore": 2.0,
+  "evalScoreResult": null,
+  "orderNum": 5,
+  "checkStandId": "12",
+  "remark": "he"
+}, {
+  "id": 141,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:26.011+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 39
+  },
+  "evalQuantity": "0.1",
+  "kpiScore": 0.55,
+  "evalScoreResult": null,
+  "orderNum": 6,
+  "checkStandId": "16",
+  "remark": "he"
+}, {
+  "id": 142,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:26.015+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 41
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.0,
+  "evalScoreResult": "效益不明显",
+  "orderNum": 7,
+  "checkStandId": "20",
+  "remark": "he"
+}, {
+  "id": 143,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:26.019+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 43
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.0,
+  "evalScoreResult": "效益不明显",
+  "orderNum": 8,
+  "checkStandId": "23",
+  "remark": "he"
+}, {
+  "id": 144,
+  "createBy": null,
+  "createDate": null,
+  "lastModifiedBy": 5000,
+  "lastModifiedDate": "2018-12-28T02:42:26.022+0000",
+  "lastModifiedVersion": 1,
+  "expert": {
+    "id": 3,
+    "expertName": "贺老师"
+  },
+  "isLeader": 0,
+  "kpi": {
+    "id": 50
+  },
+  "evalQuantity": "0",
+  "kpiScore": 1.0,
+  "evalScoreResult": "未按计划",
+  "orderNum": 9,
+  "checkStandId": "25",
+  "remark": "he"
+}]
