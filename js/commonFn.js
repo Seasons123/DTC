@@ -173,13 +173,13 @@ var commonFn = {
 
     },
     /**
-     * 计算总分????????????????????????????????????????
+     * 计算总分
      */
     calScore: function () {
         score = 0;
         var obj = $(".grade");
         $.each(obj, function (i) {
-            if (i != obj.length - 1) {
+            if (i < obj.length ) {
                 if (parseFloat(this.value)) {
                     score = parseFloat(score) + parseFloat(this.value);
                 }
