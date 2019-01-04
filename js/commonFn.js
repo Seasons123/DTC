@@ -186,14 +186,14 @@ var commonFn = {
             }
         });
         if(score != 0){
-            $("#scoreSum").val(score.toFixed(1));
+            $("#scoreSum").text(score.toFixed(1));
         }
         for(var i=0; i<rankGlobal.length; i++){
             var period = rankGlobal[i].period.split(",");
             var min = parseInt(period[0]);
             var max = parseInt(period[1]);
             if(score>min && score<max){
-                $("#evalRank").val(rankGlobal[i].name);
+                $("#evalRank").text(rankGlobal[i].name);
             }
         }
     },

@@ -15,7 +15,6 @@ var expertId=4; //专家id {4:刘老师}
 var isLeader=1; //组长角色
 var taskId=1;
 var objectId=1;
-var expertsScoreDetailsGlobal = {};//组员打分明细
 
 
 tableCommonFn = {
@@ -280,7 +279,7 @@ tableCommonFn = {
                             htmlTableBody +=  '</textarea></td>';
                         }
 
-                        //生成评分值部分，每一个单元格以id形式打标记信息，标记值包含横纵的信息（末级指标名称+末级评分名称）
+                        //生成评分值部分，每一个单元格以id形式打标记信息，标记值包含横纵的信息（末级指标id_专家id）
                         //只有组长角色(isLeader == 1)有用
                         for (var i = 0; i < user_info.length; i++) {
                             htmlTableBody += '<td class="bb"><textarea id="' + kpiObjectFinal.id  + '_' + user_info[i].id + '" class="easyui-validatebox memberGrade" required="true"></textarea></td>';
@@ -500,7 +499,7 @@ tableCommonFn = {
     generateSumRow: function(){
         htmlTableBody += '<tr><td class="cc" >合计</td><td class="cc" >100</td>';
         htmlTableBody += '<td class="cc" colspan="'+(levelNum+5) +'">如本表格评分后，总分（合计）未达到'+ rankGlobal[0].period.split(",")[1] +'分，下表留空为零，不作评分。</b></td>';
-        htmlTableBody += '<td class="bb" colspan="2"><textarea id="scoreSum" name="scoreSum" class="easyui-validatebox member" required="true" ></textarea></td>';
+        htmlTableBody += '<td class="bb scoreSum" id="scoreSum" colspan="2"></td>';
         //显示组员的合计分
         for( var i = 0; i<user_info.length ; i++){
             htmlTableBody += '<td class="bb member" id="col'+ user_info[i].name +'rowScoreSum">' + parseFloat(user_info[i].totalScore).toFixed(1) +'</td>';
@@ -526,7 +525,7 @@ tableCommonFn = {
                 htmlTableBody += '，';
             }
         }
-        htmlTableBody += '<td class="bb" colspan="2"><textarea id="evalRank" name="evalRank" class="easyui-validatebox member" required="true" ></textarea></td>';
+        htmlTableBody += '<td class="bb evalRank" id="evalRank" colspan="2"></td>';
         //显示三个组员的评价等级
         for( var i = 0; i<user_info.length ; i++){
             var id =user_info[i].id;
@@ -626,16 +625,12 @@ tableCommonFn = {
                 if(expertsScoreDetails.message){
                     $.messager.alert('错误', expertsScoreDetails.message, 'error');
                 }else{
-                    //获取组员分值数据
+                    console.log(expertsScoreDetails);
                     for(var i=0; i<expertsScoreDetails.length; i++){
-                        if(!expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id]){
-                            expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id] = [];
-                        }
-                        expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id].push(expertsScoreDetails[i]);
+                        var kpiID = expertsScoreDetails[i].kpi.id;
+                        var expertID = expertsScoreDetails[i].expert.id;
+                        $("#" + kpiID + "_" + expertID ).text(expertsScoreDetails[i].kpiScore);
                     }
-                    console.log(expertsScoreDetailsGlobal);
-                    //分数显示到表格????????????????????????????????????????????????????????????????????????????????????????????????
-
                 }
             }
         });
