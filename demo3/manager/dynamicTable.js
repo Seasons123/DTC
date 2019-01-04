@@ -15,7 +15,7 @@ var expertId=4; //专家id {4:刘老师}
 var isLeader=1; //组长角色
 var taskId=1;
 var objectId=1;
-var expertsScoreDetailsGlobal; //组员打分明细
+var expertsScoreDetailsGlobal = {};//组员打分明细
 
 
 tableCommonFn = {
@@ -283,7 +283,7 @@ tableCommonFn = {
                         //生成评分值部分，每一个单元格以id形式打标记信息，标记值包含横纵的信息（末级指标名称+末级评分名称）
                         //只有组长角色(isLeader == 1)有用
                         for (var i = 0; i < user_info.length; i++) {
-                            htmlTableBody += '<td class="bb"><textarea id="row' + kpiObjectFinal.id  + 'col' + user_info[i].name + '" class="easyui-validatebox memberGrade" required="true"></textarea></td>';
+                            htmlTableBody += '<td class="bb"><textarea id="' + kpiObjectFinal.id  + '_' + user_info[i].id + '" class="easyui-validatebox memberGrade" required="true"></textarea></td>';
                         }
 
                         htmlTableBody += '</tr>';
@@ -292,6 +292,7 @@ tableCommonFn = {
                     //渲染主体表格页面  end
                     tableCommonFn.generateSumRow();
                     tableCommonFn.initVal();
+                    tableCommonFn.initMemberScoreDetail();
                     tableCommonFn.cssStyleControl();
                 }
             }
@@ -370,48 +371,6 @@ tableCommonFn = {
             }
         });
         console.log(user_info);
-    },
-
-    //查询某次任务的所有打分专家，只有组长角色(isLeader == 1)有用
-    searchExpertsScoreDetails: function () {
-        var expertIdArray = [];
-        for(i in user_info){
-            expertIdArray.push(user_info[i].id);
-        }
-        var expertIds = expertIdArray.toString();
-        var data = {
-            "taskId":taskId,
-            "expertIds":expertIds,
-            "fetchProperties":"*,expert[id,expertName],kpi[id]",
-            "sort":"orderNum,asc"
-        };
-        $.ajax({
-            type: 'GET',
-            url: formUrl.expertsScoreDetails,
-            dataType: 'json',
-            data:data,
-            contentType: "application/json; charset=utf-8",
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
-            async: false,
-            success: function (expertsScoreDetails) {
-                if(expertsScoreDetails.message){
-                    $.messager.alert('错误', expertsScoreDetails.message, 'error');
-                }else{
-                    var expertsScoreDetailsGlobal = {};
-                    for(var i=0; i<expertsScoreDetails.length; i++){
-                        if(!expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id]){
-                            expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id] = [];
-                        }
-                        expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id].push(expertsScoreDetails[i]);
-                    }
-                    console.log(expertsScoreDetailsGlobal);
-
-                }
-            }
-        });
     },
 
     //查询项目信息
@@ -638,12 +597,54 @@ tableCommonFn = {
         //3.合计行和评价等级行赋值
         commonFn.calScore();
     },
+
+    //获取组员分值数据并显示在表格，只有组长角色(isLeader == 1)有用
+    initMemberScoreDetail: function(){
+        var expertIdArray = [];
+        for(i in user_info){
+            expertIdArray.push(user_info[i].id);
+        }
+        var expertIds = expertIdArray.toString();
+        var data = {
+            "taskId":taskId,
+            "expertIds":expertIds,
+            "fetchProperties":"*,expert[id,expertName],kpi[id]",
+            "sort":"orderNum,asc"
+        };
+        $.ajax({
+            type: 'GET',
+            url: formUrl.expertsScoreDetails,
+            dataType: 'json',
+            data:data,
+            contentType: "application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: false,
+            success: function (expertsScoreDetails) {
+                if(expertsScoreDetails.message){
+                    $.messager.alert('错误', expertsScoreDetails.message, 'error');
+                }else{
+                    //获取组员分值数据
+                    for(var i=0; i<expertsScoreDetails.length; i++){
+                        if(!expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id]){
+                            expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id] = [];
+                        }
+                        expertsScoreDetailsGlobal[expertsScoreDetails[i].kpi.id].push(expertsScoreDetails[i]);
+                    }
+                    console.log(expertsScoreDetailsGlobal);
+                    //分数显示到表格????????????????????????????????????????????????????????????????????????????????????????????????
+
+                }
+            }
+        });
+    }
 };
 
 var getInfo = function(){
     tableCommonFn.searchUserInfo();
     tableCommonFn.searchEvalScore(); //查询时先查评分总表，再查评分明细表
-    tableCommonFn.searchExpertsScoreDetails();
     tableCommonFn.searchProject();
     tableCommonFn.searchRank();
     tableCommonFn.initTable();
