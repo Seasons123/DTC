@@ -43,8 +43,9 @@ tableCommonFn = {
     //不确定共有几级指标，表格左侧内容动态生成+获取分值显示
     initTable: function () {
         var data = {
-            "evalObject.id":1,
-            "dataStatus":"new",
+            "evalObject.id":objectId,
+            "evalTask.id":taskId,
+            "isValid":1,
             "fetchProperties":"*,kpi[*,parent[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi1[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi2[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi3[id,kpiName,kpiWeight,kpiLevel,kpiExplain],parentKpi4[id,kpiName,kpiWeight,kpiLevel,kpiExplain]]",
             "sort":"orderNum,asc"
         };
