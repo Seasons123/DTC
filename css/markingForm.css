@@ -92,7 +92,7 @@ input.text{
     border: solid 1px #95b3d7;
 }
 
-.quantify,.grade,.remark,.member{
+.quantify,.grade,.remark,.member,.memberGrade{
     background-color: rgb(209, 238, 238);
 }
 .quantify {
