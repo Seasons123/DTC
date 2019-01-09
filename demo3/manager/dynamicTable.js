@@ -613,7 +613,7 @@ tableCommonFn = {
         };
         $.ajax({
             type: 'GET',
-            url: formUrl.expertsScoreDetails,
+            url: formUrl.getExpertsScoreDetails,
             dataType: 'json',
             data:data,
             contentType: "application/json; charset=utf-8",
